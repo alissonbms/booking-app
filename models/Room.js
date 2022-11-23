@@ -34,3 +34,5 @@ const RoomModel = model(
     { timestamps: true }
   )
 );
+
+export default RoomModel;
