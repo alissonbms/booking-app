@@ -1,4 +1,5 @@
 import search from "../../assets/search.png";
+import { Link } from "react-router-dom";
 
 import FooterComponent from "../../components/footer/FooterComponent";
 import NavComponent from "../../components/nav/NavComponent";
@@ -19,7 +20,10 @@ import {
   Subtitle,
 } from "./home.styles";
 
+import { useNavigate } from "react-router-dom";
+
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Header>
@@ -48,7 +52,7 @@ const Home = () => {
                   placeholder="1 adult * 1 children * 1 room"
                 />
               </div>
-              <button type="submit">
+              <button type="submit" onClick={() => navigate("/propertyList")}>
                 <img src={search} alt="submit button" />
                 <span>Search</span>
               </button>

@@ -1,5 +1,6 @@
 import logo12 from "../../assets/logo12.png";
 import logo13 from "../../assets/logo13.png";
+import { useNavigate } from "react-router-dom";
 
 import { VscChromeClose } from "react-icons/vsc";
 import { BsChevronDoubleDown } from "react-icons/bs";
@@ -10,12 +11,17 @@ import "./nav.styles.js";
 import { AccountBtn, Logo, Nav, NavLinks } from "./nav.styles.js";
 
 const NavComponent = ({ homeNav }) => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   return (
     <>
       <Nav homeNav={homeNav} visible={isVisible === true ? true : false}>
-        <Logo src={homeNav === true ? logo13 : logo12} alt="logo BookinGood" />
+        <Logo
+          src={homeNav === true ? logo13 : logo12}
+          alt="logo BookinGood"
+          onClick={() => navigate("/")}
+        />
 
         {homeNav && (
           <NavLinks>

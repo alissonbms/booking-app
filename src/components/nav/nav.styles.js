@@ -135,6 +135,7 @@ export const AccountBtn = styled.div`
 `;
 
 export const Logo = styled.img`
+  cursor: pointer;
   width: 281px;
   height: 50px;
   @media only screen and (max-width: 819px) {
