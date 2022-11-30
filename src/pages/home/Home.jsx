@@ -219,15 +219,10 @@ const Home = () => {
         <Subtitle id="popular-countries">Popular Countries</Subtitle>
         <Exclusives>
           <PopularCountryCard />
-          <PopularCountryCard />
-          <PopularCountryCard />
-          <PopularCountryCard />
         </Exclusives>
 
         <Subtitle id="property-types">Property Types</Subtitle>
         <Properties>
-          <PropertyTypesCard />
-          <PropertyTypesCard />
           <PropertyTypesCard />
         </Properties>
       </Container>
@@ -243,10 +238,6 @@ const Home = () => {
       <Container>
         <Subtitle id="featured-properties">Featured Properties</Subtitle>
         <FP>
-          <FeaturedPropertyCard />
-          <FeaturedPropertyCard />
-          <FeaturedPropertyCard />
-          <FeaturedPropertyCard />
           <FeaturedPropertyCard />
         </FP>
         <Aboutmsg>
