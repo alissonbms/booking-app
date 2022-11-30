@@ -59,52 +59,16 @@ export const SearchBar = styled.div`
   margin: 23px auto;
   border-radius: 25px;
 
+  .date {
+    position: absolute;
+    z-index: 2;
+  }
+
   form {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: space-between;
-  }
-
-  input {
-    display: block;
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 17px;
-    margin-top: 15px;
-    border-top: none;
-    padding: 0px 7px 2px 7px;
-  }
-
-  input::placeholder {
-    color: #555;
-  }
-
-  input:focus {
-    border-bottom: 2px solid hsl(199, 100%, 33%);
-  }
-
-  button {
-    background-image: linear-gradient(
-      to left,
-      hsl(191, 85%, 43%),
-      hsl(199, 100%, 33%)
-    );
-    width: 80px;
-    height: 80px;
-    border: none;
-    border-radius: 50%;
-    outline: none;
-    transition: all 0.5s ease;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    row-gap: 5px;
-    font-size: 15px;
-    cursor: pointer;
   }
 
   img {
@@ -116,6 +80,13 @@ export const SearchBar = styled.div`
     font-weight: 700;
     color: #333;
     font-size: 18px;
+  }
+
+  @media only screen and (max-width: 819px) {
+    .date {
+      top: 176px;
+      left: -50px;
+    }
   }
 
   @media screen and (max-width: 1500px) {
@@ -133,23 +104,113 @@ export const SearchBar = styled.div`
     form {
       display: block;
     }
-
-    input {
-      border: none;
-      width: 100%;
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-      margin-bottom: 20px;
-    }
-
-    button {
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translate(-50%, 50%);
-    }
   }
 `;
+
+export const Options = styled.div`
+  z-index: 2;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 8px;
+  -webkit-box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.4);
+  box-shadow: 10px 10px 10px -5px rgba(0, 0, 0, 0.4);
+  color: gray;
+  display: flex;
+  flex-direction: column;
+
+  @media only screen and (max-width: 819px) {
+    top: 265px;
+  }
+`;
+
+export const OptionItem = styled.div`
+  width: 200px;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+  /* margin: 10px; */
+`;
+export const OptionCounter = styled.div`
+  display: flex;
+  column-gap: 10px;
+  /* 
+  align-items: center;
+  
+  
+   */
+`;
+export const OptionCounterButton = styled.button`
+  display: flex;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 2px solid hsl(199, 100%, 33%);
+  background-color: #fff;
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+
+export const SearchInput = styled.input`
+  display: block;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 17px;
+  margin-top: 15px;
+  border-top: none;
+  padding: 0px 7px 2px 7px;
+
+  &::placeholder {
+    color: #555;
+  }
+
+  &:focus {
+    border-bottom: 2px solid hsl(199, 100%, 33%);
+  }
+
+  @media screen and (max-width: 1500px) {
+    border: none;
+    width: 100%;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+`;
+
+export const SearchButton = styled.button`
+  background-image: linear-gradient(
+    to left,
+    hsl(191, 85%, 43%),
+    hsl(199, 100%, 33%)
+  );
+  width: 80px;
+  height: 80px;
+  border: none;
+  border-radius: 50%;
+  outline: none;
+  transition: all 0.5s ease;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 5px;
+  font-size: 15px;
+  cursor: pointer;
+
+  @media screen and (max-width: 1500px) {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+  }
+`;
+
 /*-- Popular Countries --*/
 
 export const Subtitle = styled.h2`

@@ -1,8 +1,7 @@
-import NavComponent from "../../components/nav/NavComponent";
-
 import { MdLocationOn } from "react-icons/md";
+
+//Styles
 import {
-  // BookNow,
   PropertyAddress,
   PropertyContainer,
   PropertyDetails,
@@ -12,6 +11,9 @@ import {
   PropertyTitle,
   PropertyWrapper,
 } from "./property.styles";
+
+//Components
+import NavComponent from "../../components/nav/NavComponent";
 
 const Property = () => {
   const photos = [

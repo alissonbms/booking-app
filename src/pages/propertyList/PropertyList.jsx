@@ -1,7 +1,11 @@
-import FooterComponent from "../../components/footer/FooterComponent";
-import NavComponent from "../../components/nav/NavComponent";
-import SearchItem from "../../components/searchItem/SearchItem";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { DateRange } from "react-date-range";
+import { format } from "date-fns";
+
+//Styles
+import "react-date-range/dist/styles.css";
+import "react-date-range/dist/theme/default.css";
 import {
   Container,
   LeftCol,
@@ -13,8 +17,19 @@ import {
   LsItem,
 } from "./propertyList.styles.js";
 
+//Components
+import FooterComponent from "../../components/footer/FooterComponent";
+import NavComponent from "../../components/nav/NavComponent";
+import SearchItem from "../../components/searchItem/SearchItem";
+
 const Properties = () => {
+  let location = useLocation();
   const navigate = useNavigate();
+
+  const [destination, setDestination] = useState(location.state.destination);
+  const [date, setDate] = useState(location.state.date);
+  const [options, setOptions] = useState(location.state.options);
+  const [showDate, setShowDate] = useState(false);
 
   return (
     <>
@@ -26,14 +41,27 @@ const Properties = () => {
               <h1 className="lsTitle">Search</h1>
               <LsItem>
                 <label htmlFor="">Destination</label>
-                <input
-                  type="text"
-                  placeholder="Write the desired destination"
-                />
+                <input type="text" placeholder={destination} />
               </LsItem>
               <LsItem>
                 <label htmlFor="">Check-in and Check-out</label>
-                <input type="text" placeholder="01/01/01 to 01/01/01" />
+                <span onClick={() => setShowDate(!showDate)}>
+                  {`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(
+                    date[0].endDate,
+                    "MM/dd/yyyy"
+                  )}`}
+                </span>
+
+                {showDate && (
+                  <DateRange
+                    editableDateInputs={true}
+                    onChange={(item) => setDate([item.selection])}
+                    moveRangeOnFirstSelection={false}
+                    minDate={new Date()}
+                    ranges={date}
+                    className="date"
+                  />
+                )}
               </LsItem>
 
               <LsItem>
@@ -61,7 +89,7 @@ const Properties = () => {
                       type="number"
                       min={1}
                       className="lsOptionInput"
-                      placeholder="5"
+                      placeholder={options.adult}
                     />
                   </LsOptionItem>
 
@@ -71,7 +99,7 @@ const Properties = () => {
                       type="number"
                       min={0}
                       className="lsOptionInput"
-                      placeholder="2"
+                      placeholder={options.children}
                     />
                   </LsOptionItem>
 
@@ -81,7 +109,7 @@ const Properties = () => {
                       type="number"
                       min={1}
                       className="lsOptionInput"
-                      placeholder="1"
+                      placeholder={options.room}
                     />
                   </LsOptionItem>
                 </LsOptions>

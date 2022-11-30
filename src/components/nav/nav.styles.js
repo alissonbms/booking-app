@@ -33,7 +33,7 @@ export const Nav = styled.nav`
     position: fixed;
     top: -28px;
     padding: 100px 7% 0;
-    z-index: 100;
+    z-index: 3;
     display: inline-block;
 
     .menu-icon {

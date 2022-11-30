@@ -64,6 +64,12 @@ export const LeftCol = styled.div`
     font-weight: 600;
     margin-bottom: 20px;
   }
+
+  @media screen and (max-width: 1526px) {
+    img {
+      min-width: 100%;
+    }
+  }
 `;
 export const RightCol = styled.div`
   flex-basis: 28%;
@@ -88,12 +94,6 @@ export const ListSearch = styled.div`
     cursor: pointer;
     font-size: 17px;
   }
-
-  @media screen and (max-width: 1526px) {
-    img {
-      min-width: 100%;
-    }
-  }
 `;
 
 export const LsItem = styled.div`
@@ -111,13 +111,23 @@ export const LsItem = styled.div`
   }
 
   & > span {
-    /* height: 27px;  background-color: white;
+    background-color: white;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    cursor: pointer;
+  }
 
-  color: black;
-  padding: 8px;
-  display: flex;
-  align-items: center;
-  cursor: pointer; */
+  .date {
+    position: absolute;
+    top: 210px;
+  }
+
+  @media only screen and (max-width: 819px) {
+    .date {
+      left: -14px;
+    }
   }
 `;
 /* OPTIONS */
