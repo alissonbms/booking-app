@@ -1,5 +1,7 @@
 import { Router } from "express";
 import {
+  countByCountry,
+  countByType,
   createProperty,
   deleteProperty,
   getProperties,
@@ -13,6 +15,10 @@ const router = Router();
 
 router.get("/", getProperties);
 router.get("/find/:id", getPropertyById);
+
+router.get("/countByCountry", countByCountry);
+router.get("/countByType", countByType);
+
 router.post("/", verifyAdmin, createProperty);
 router.patch("/:id", verifyAdmin, updateProperty);
 router.delete("/:id", verifyAdmin, deleteProperty);

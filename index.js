@@ -9,7 +9,7 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import roomRouter from "./routes/roomRouter.js";
 import propertyRouter from "./routes/propertyRouter.js";
-
+import cors from "cors";
 import errorHandler from "./utils/errorHandler.js";
 
 const app = express();
@@ -26,6 +26,7 @@ mongoose.connection.once("open", () => {
 mongoose.connection.on("error", (err) => console.log(err.message));
 
 // Middlewares
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 

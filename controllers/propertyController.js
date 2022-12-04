@@ -10,12 +10,17 @@ import {
 } from "../utils/customErrors.js";
 
 export const getProperties = async (req, res, next) => {
-  try {
-    const properties = await PropertyModel.find();
+  const { min, max, ...others } = req.query;
 
-    if (!properties.length) {
-      return next(missingEntityRegistersError("properties"));
-    }
+  try {
+    const properties = await PropertyModel.find({
+      ...others,
+      cheapestPrice: { $gte: min || 1, $lte: max || 999 },
+    }).limit(req.query.limit);
+
+    // if (!properties.length) {
+    //   return next(missingEntityRegistersError("properties"));
+    // }
 
     res.status(200).json(properties);
   } catch (error) {
@@ -56,6 +61,7 @@ export const createProperty = async (req, res, next) => {
     description,
     rating,
     cheapestPrice,
+    featured,
   } = req.body;
 
   if (
@@ -90,6 +96,7 @@ export const createProperty = async (req, res, next) => {
       description,
       rating,
       cheapestPrice,
+      featured,
     });
 
     if (!property) {
@@ -141,6 +148,46 @@ export const deleteProperty = async (req, res, next) => {
     }
 
     res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const countByCountry = async (req, res, next) => {
+  const countries = req.query.countries.split(",");
+
+  try {
+    const list = await Promise.all(
+      countries.map((country) => {
+        return PropertyModel.countDocuments({ country: country });
+      })
+    );
+
+    return res.status(200).json(list);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const countByType = async (req, res, next) => {
+  try {
+    const cabinsCount = await PropertyModel.countDocuments({ type: "Cabin" });
+    const apartmentsCount = await PropertyModel.countDocuments({
+      type: "Apartment",
+    });
+    const hotelsCount = await PropertyModel.countDocuments({ type: "Hotel" });
+
+    return res.status(200).json([
+      { type: "Cabin", count: cabinsCount },
+      {
+        type: "Apartment",
+        count: apartmentsCount,
+      },
+      {
+        type: "Hotel",
+        count: hotelsCount,
+      },
+    ]);
   } catch (error) {
     next(error);
   }
