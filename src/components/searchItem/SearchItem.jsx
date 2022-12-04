@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "./searchItem.styles.js";
 
 import {
@@ -15,26 +16,32 @@ import {
   SiTitle,
 } from "./searchItem.styles.js";
 
-const SearchItem = () => {
+const SearchItem = ({ property }) => {
+  const navigate = useNavigate();
+
   return (
     <Si>
-      <img src="https://images.unsplash.com/photo-1460317442991-0ec209397118?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" />
+      <img src={property.photos[0]} />
       <SiDesc>
-        <SiTitle>Tower Street Apartments</SiTitle>
-        <SiDistance>500m from center</SiDistance>
+        <SiTitle>{property.name}</SiTitle>
+        <SiDistance>{property.distance} from center</SiDistance>
         <span>Free airport taxi</span>
-        <SiSubtitle>Studio Apartment with Air conditioning</SiSubtitle>
-        <SiFeatures>Entire studio • 1 bathroom • 21m² 1 full bed</SiFeatures>
+        <SiSubtitle>{property.headline}</SiSubtitle>
+        <SiFeatures>{property.description}</SiFeatures>
       </SiDesc>
       <SiDetails>
-        <SiRating>
-          <span>Excellent</span>
-          <button>8.9</button>
-        </SiRating>
+        {property.rating && (
+          <SiRating>
+            <span>{property.rating <= 7 ? "Regular" : "Excellent"}</span>
+            <button>{property.rating}.0</button>
+          </SiRating>
+        )}
         <SiDetailsTexts>
-          <SiPrice>$112</SiPrice>
+          <SiPrice>${property.cheapestPrice}</SiPrice>
           <SiTaxiOp>Includes taxes and fees</SiTaxiOp>
-          <SiCheckButton>See availability</SiCheckButton>
+          <SiCheckButton onClick={() => navigate(`/property/${property._id}`)}>
+            See availability
+          </SiCheckButton>
         </SiDetailsTexts>
       </SiDetails>
     </Si>

@@ -48,6 +48,7 @@ export const Container = styled.div`
 
 export const ListContainer = styled.div`
   margin-top: 50px;
+  margin-bottom: 250px;
   display: flex;
   justify-content: space-between;
   @media only screen and (max-width: 819px) {

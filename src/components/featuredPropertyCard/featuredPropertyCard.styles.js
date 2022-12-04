@@ -40,13 +40,18 @@ export const FpPrice = styled.span`
 `;
 
 export const FpRating = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 5px;
+
   span:nth-child(1) {
     background-color: #bd0e54;
-    padding: 3px;
+    padding: 2px;
     color: white;
     border: none;
+    font-size: 15px;
     font-weight: bold;
-    margin-right: 8px;
   }
 
   span:nth-child(2) {

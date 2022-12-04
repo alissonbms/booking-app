@@ -40,14 +40,14 @@ export const PropertyImages = styled.div`
   //   display: flex;
   //   flex-wrap: wrap;
   //   /* justify-content: space-between; */
-  grid-template-areas: "first ." "second second" ". .";
+  grid-template-areas: "first  . .";
 
   div:nth-child(1) {
     grid-area: first;
   }
-  div:nth-child(2) {
+  /* div:nth-child(2) {
     grid-area: second;
-  }
+  } */
 
   /* 
   div:nth-child(2) {
@@ -84,8 +84,8 @@ export const PropertyImages = styled.div`
   @media only screen and (max-width: 1629px) {
   }
 
-  @media only screen and (max-width: 926px) {
-    grid-template-areas: "first" "second";
+  @media only screen and (max-width: 1200px) {
+    grid-template-areas: "first" ".";
   }
 `;
 

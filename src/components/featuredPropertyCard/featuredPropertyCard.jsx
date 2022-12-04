@@ -1,3 +1,4 @@
+import useFetch from "../../hooks/useFetch";
 import {
   FeaturedCard,
   FpCity,
@@ -5,60 +6,35 @@ import {
   FpPrice,
   FpRating,
 } from "./featuredPropertyCard.styles";
+import { AiFillStar } from "react-icons/ai";
 
 const FeaturedPropertyCard = () => {
+  const { data, isLoading } = useFetch(
+    "http://localhost:3003/api/property?featured=true&limit=5"
+  );
   return (
     <>
-      <FeaturedCard>
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/322658536.jpg?k=3fffe63a365fd0ccdc59210188e55188cdb7448b9ec1ddb71b0843172138ec07&o=&hp=1" />
-        <FpName>Hilton Garden Inn</FpName>
-        <FpCity>Berlin</FpCity>
-        <FpPrice>Starting from $105</FpPrice>
-        <FpRating>
-          <span>8.9</span>
-          <span>Excellent</span>
-        </FpRating>
-      </FeaturedCard>
-      <FeaturedCard>
-        <img src="https://cf.bstatic.com/xdata/images/hotel/square600/13125860.webp?k=e148feeb802ac3d28d1391dad9e4cf1e12d9231f897d0b53ca067bde8a9d3355&o=&s=1" />
-        <FpName>Hilton Garden Inn</FpName>
-        <FpCity>Berlin</FpCity>
-        <FpPrice>Starting from $105</FpPrice>
-        <FpRating>
-          <span>8.9</span>
-          <span>Excellent</span>
-        </FpRating>
-      </FeaturedCard>
-      <FeaturedCard>
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/215955381.jpg?k=ff739d1d9e0c8e233f78ee3ced82743ef0355e925df8db7135d83b55a00ca07a&o=&hp=1" />
-        <FpName>Hilton Garden Inn</FpName>
-        <FpCity>Berlin</FpCity>
-        <FpPrice>Starting from $105</FpPrice>
-        <FpRating>
-          <span>8.9</span>
-          <span>Excellent</span>
-        </FpRating>
-      </FeaturedCard>
-      <FeaturedCard>
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/232902339.jpg?k=3947def526b8af0429568b44f9716e79667d640842c48de5e66fd2a8b776accd&o=&hp=1" />
-        <FpName>Hilton Garden Inn</FpName>
-        <FpCity>Berlin</FpCity>
-        <FpPrice>Starting from $105</FpPrice>
-        <FpRating>
-          <span>8.9</span>
-          <span>Excellent</span>
-        </FpRating>
-      </FeaturedCard>
-      <FeaturedCard>
-        <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/322658536.jpg?k=3fffe63a365fd0ccdc59210188e55188cdb7448b9ec1ddb71b0843172138ec07&o=&hp=1" />
-        <FpName>Hilton Garden Inn</FpName>
-        <FpCity>Berlin</FpCity>
-        <FpPrice>Starting from $105</FpPrice>
-        <FpRating>
-          <span>8.9</span>
-          <span>Excellent</span>
-        </FpRating>
-      </FeaturedCard>
+      {isLoading ? (
+        <h1>Loading please wait</h1>
+      ) : (
+        <>
+          {data?.map((property) => (
+            <FeaturedCard key={property._id}>
+              <img src={property.photos[0]} />
+              <FpName>{property.name}</FpName>
+              <FpCity>{property.city}</FpCity>
+              <FpPrice>Starting from ${property.cheapestPrice}</FpPrice>
+              {property.rating && (
+                <FpRating>
+                  <span>{property.rating}.0</span>
+                  <span>{property.rating <= 7 ? "Regular" : "Excellent"}</span>
+                  <AiFillStar color="#FFD700" />
+                </FpRating>
+              )}
+            </FeaturedCard>
+          ))}
+        </>
+      )}
     </>
   );
 };

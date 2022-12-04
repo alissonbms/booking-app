@@ -14,6 +14,7 @@ export const Si = styled.div`
     height: 250px;
     flex: 2;
     object-fit: cover;
+    object-position: center;
     border-radius: 12px;
     align-self: center;
   }

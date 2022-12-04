@@ -207,7 +207,7 @@ const Home = () => {
                 )}
               </div>
 
-              <SearchButton onClick={handleSearch}>
+              <SearchButton type="button" onClick={handleSearch}>
                 <img src={search} alt="submit button" />
                 <span>Search</span>
               </SearchButton>
