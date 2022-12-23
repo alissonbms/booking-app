@@ -4,7 +4,9 @@ import {
   notFoundOrInvalidDataError,
   idIsRequiredError,
   missingEntityRegistersError,
+  createError,
 } from "../utils/customErrors.js";
+import jwt from "jsonwebtoken";
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -46,20 +48,51 @@ export const updateUser = async (req, res, next) => {
     return next(idIsRequiredError("user"));
   }
 
-  try {
-    const updatedUser = await UserModel.findByIdAndUpdate(
-      id,
-      { $set: req.body },
-      { new: true }
-    );
+  const isAdmin = req.body.isAdmin;
 
-    if (!updatedUser) {
-      return next(notFoundOrInvalidDataError("user"));
+  if (isAdmin) {
+    const token = req.cookies.access_token;
+
+    jwt.verify(token, process.env.JWT_SECRET_KEY, (error, user) => {
+      if (error) return next(createError(403, "Token is not valid!"));
+      req.user = user;
+    });
+
+    if (req.user.isAdmin) {
+      try {
+        const updatedUser = await UserModel.findByIdAndUpdate(
+          id,
+          { $set: req.body },
+          { new: true }
+        );
+
+        if (!updatedUser) {
+          return next(notFoundOrInvalidDataError("user"));
+        }
+
+        res.status(200).json(updatedUser);
+      } catch (error) {
+        next(error);
+      }
+    } else {
+      return next(createError(403, "You are not authorized"));
     }
+  } else {
+    try {
+      const updatedUser = await UserModel.findByIdAndUpdate(
+        id,
+        { $set: req.body },
+        { new: true }
+      );
 
-    res.status(200).json(updatedUser);
-  } catch (error) {
-    next(error);
+      if (!updatedUser) {
+        return next(notFoundOrInvalidDataError("user"));
+      }
+
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
   }
 };
 

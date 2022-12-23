@@ -1,5 +1,7 @@
 import { Types } from "mongoose";
 import PropertyModel from "../models/Property.js";
+import RoomModel from "../models/Room.js";
+
 import {
   allFieldsAreRequiredError,
   couldNotCreateError,
@@ -10,17 +12,14 @@ import {
 } from "../utils/customErrors.js";
 
 export const getProperties = async (req, res, next) => {
-  const { min, max, ...others } = req.query;
+  const { min, max, guests, ...others } = req.query;
 
   try {
     const properties = await PropertyModel.find({
       ...others,
       cheapestPrice: { $gte: min || 1, $lte: max || 999 },
+      supportedGuests: { $gte: guests || 1 },
     }).limit(req.query.limit);
-
-    // if (!properties.length) {
-    //   return next(missingEntityRegistersError("properties"));
-    // }
 
     res.status(200).json(properties);
   } catch (error) {
@@ -58,10 +57,10 @@ export const createProperty = async (req, res, next) => {
     address,
     distance,
     photos,
-    description,
     rating,
     cheapestPrice,
     featured,
+    supportedGuests,
   } = req.body;
 
   if (
@@ -72,9 +71,8 @@ export const createProperty = async (req, res, next) => {
     !city ||
     !address ||
     !distance ||
-    !description ||
-    !cheapestPrice
-    // !photos || !rating || !rooms || !featured || || ||
+    !cheapestPrice ||
+    !supportedGuests
   ) {
     return next(allFieldsAreRequiredError());
   } else if (type !== "Hotel" && type !== "Cabin" && type !== "Apartment") {
@@ -93,10 +91,10 @@ export const createProperty = async (req, res, next) => {
       address,
       distance,
       photos,
-      description,
       rating,
       cheapestPrice,
       featured,
+      supportedGuests,
     });
 
     if (!property) {
@@ -188,6 +186,32 @@ export const countByType = async (req, res, next) => {
         count: hotelsCount,
       },
     ]);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getPropertyRooms = async (req, res, next) => {
+  const id = req.params.id;
+
+  if (!Types.ObjectId.isValid(id)) {
+    return next(idIsRequiredError("property"));
+  }
+
+  try {
+    const property = await PropertyModel.findById(id);
+
+    if (!property) {
+      return next(notFoundOrInvalidDataError("property"));
+    }
+
+    const roomsList = await Promise.all(
+      property.rooms.map((room) => {
+        return RoomModel.findById(room);
+      })
+    );
+
+    res.status(200).json(roomsList);
   } catch (error) {
     next(error);
   }

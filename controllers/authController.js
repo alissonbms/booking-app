@@ -10,7 +10,7 @@ import {
 } from "../utils/customErrors.js";
 
 export const register = async (req, res, next) => {
-  const { username, password, email, isAdmin } = req.body;
+  const { username, password, email } = req.body;
 
   if (!username || !email || !password) {
     return next(allFieldsAreRequiredError());
@@ -29,7 +29,7 @@ export const register = async (req, res, next) => {
     const newUser = await UserModel.create({
       username,
       email,
-      isAdmin,
+      isAdmin: false,
       password: hashedPassword,
     });
 
@@ -37,11 +37,7 @@ export const register = async (req, res, next) => {
       return next(couldNotCreateError("user"));
     }
 
-    res
-      .status(201)
-      .json(
-        `User ${newUser.username} owner of ${newUser.email} email was created`
-      );
+    res.status(201).json({ username, email });
   } catch (error) {
     next(error);
   }
@@ -72,9 +68,9 @@ export const login = async (req, res, next) => {
 
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT_SECRET_KEY
+      process.env.JWT_SECRET_KEY,
+      { expiresIn: "2h" }
     );
-    // { subject: user._id.toString(), expiresIn: "2d" }
 
     const { password, isAdmin, ...otherDetails } = user._doc;
 

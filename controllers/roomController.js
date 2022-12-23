@@ -108,6 +108,24 @@ export const updateRoom = async (req, res, next) => {
   }
 };
 
+export const updateAvailabilityRoom = async (req, res, next) => {
+  const id = req.params.id;
+
+  if (!Types.ObjectId.isValid(id)) {
+    return next(idIsRequiredError("roomNumber"));
+  }
+
+  try {
+    await RoomModel.updateOne(
+      { "roomNumbers._id": id },
+      { $push: { "roomNumbers.$.unavailableDates": req.body.dates } }
+    );
+    res.status(200).json({ message: "Room updated" });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const deleteRoom = async (req, res, next) => {
   const propertyid = req.params.propertyid;
   const id = req.params.id;

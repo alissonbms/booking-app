@@ -25,7 +25,7 @@ const RoomModel = model(
         type: [
           {
             number: { type: Number, required: true },
-            unvailableDates: { type: [Date] },
+            unavailableDates: { type: [Date] },
           },
         ],
         required: true,

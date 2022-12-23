@@ -9,6 +9,8 @@ import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
 import roomRouter from "./routes/roomRouter.js";
 import propertyRouter from "./routes/propertyRouter.js";
+import stripeRouter from "./utils/stripe.js";
+
 import cors from "cors";
 import errorHandler from "./utils/errorHandler.js";
 
@@ -22,7 +24,6 @@ mongoose.connection.once("open", () => {
   app.listen(3003, () => console.log("Server running on port 3003"));
 });
 
-// To handle errors after initial connection was established
 mongoose.connection.on("error", (err) => console.log(err.message));
 
 // Middlewares
@@ -34,6 +35,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/room", roomRouter);
 app.use("/api/property", propertyRouter);
+app.use("/", stripeRouter);
 
 app.use(errorHandler);
 

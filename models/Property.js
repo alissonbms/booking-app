@@ -14,11 +14,11 @@ const PropertyModel = model(
     city: { type: String, required: true },
     address: { type: String, required: true },
     distance: { type: String, required: true }, // 300m from center
-    photos: { type: [String] }, // 5required: true
-    description: { type: String, required: true },
+    photos: { type: [String] }, // 5 required: true
     rating: { type: Number, min: 0, max: 10 },
     rooms: { type: [Schema.Types.ObjectId], ref: "Room", default: [] },
     cheapestPrice: { type: Number, required: true },
+    supportedGuests: { type: Number, required: true },
     featured: { type: Boolean, default: false },
   })
 );
