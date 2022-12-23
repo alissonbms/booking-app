@@ -12,48 +12,16 @@ export const Container = styled.div`
   }
 `;
 
-// @media screen and (max-width: 1526px) {
-
-//   .siDesc {
-//     align-items: center;
-//   }
-
-//   .siDetails {
-//     align-items: center;
-//   }
-// }
-
-// @media only screen and (max-width: 1020px) {
-//   .siDesc {
-//     align-items: center;
-//     min-width: 100%;
-//   }
-
-//   .siDetails {
-//     align-items: initial;
-//   }
-
-//   .listSearch {
-//     /* text-align: center; */
-//     /* max-width: 300px; */
-//   }
-
-//   /* .listSearch .lsItem {
-//     align-items: center;
-//   }
-//   .list-container {
-//     align-items: center;
-//   } */
-// }
-
 export const ListContainer = styled.div`
   margin-top: 50px;
   margin-bottom: 250px;
   display: flex;
   justify-content: space-between;
-  @media only screen and (max-width: 819px) {
+
+  @media screen and (max-width: 1050px) {
     flex-direction: column;
-    gap: 40px;
+    margin-bottom: 100px;
+    gap: 60px;
   }
 `;
 
@@ -72,6 +40,13 @@ export const LeftCol = styled.div`
     }
   }
 `;
+
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 10vh;
+`;
+
 export const RightCol = styled.div`
   flex-basis: 28%;
 `;
@@ -104,9 +79,10 @@ export const LsItem = styled.div`
   margin-top: 18px;
   font-size: 19px;
 
-  & > input {
+  & > input,
+  select {
     height: 30px;
-    padding: 8px;
+    padding: 5px;
     border: none;
     font-size: 17px;
   }
@@ -120,13 +96,13 @@ export const LsItem = styled.div`
     cursor: pointer;
   }
 
-  .date {
+  .dates {
     position: absolute;
-    top: 210px;
+    top: 290px;
   }
 
   @media only screen and (max-width: 819px) {
-    .date {
+    .dates {
       left: -14px;
     }
   }
@@ -149,5 +125,24 @@ export const LsOptionItem = styled.div`
     font-size: 17px;
   }
   input:focus {
+  }
+`;
+
+/* NOT FOUND */
+
+export const NotFound = styled.div`
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  font-size: 1.2rem;
+  padding-left: 20px;
+
+  ul {
+    li {
+      margin-bottom: 10px;
+      margin-left: 40px;
+      font-size: 17px;
+    }
   }
 `;

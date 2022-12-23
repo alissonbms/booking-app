@@ -13,24 +13,21 @@ export const Header = styled.header`
     color: #fff;
     font-weight: 500;
     text-align: center;
-
-    /* @media screen and (min-width: 820px) and (max-width: 1156px) {
-      font-size: 5vw;
-    }
-    @media only screen and (max-width: 819px) {
-      font-size: 6vw;
-    } */
   }
 
   @media screen and (min-width: 820px) and (max-width: 1156px) {
+    height: 130vh;
+
     h1 {
-      font-size: 5vw;
+      font-size: 3.5vw;
     }
   }
 
   @media only screen and (max-width: 819px) {
+    height: 140vh;
     h1 {
-      font-size: 6vw;
+      margin-top: 200px;
+      font-size: 7vw;
     }
   }
 `;
@@ -59,7 +56,7 @@ export const SearchBar = styled.div`
   margin: 23px auto;
   border-radius: 25px;
 
-  .date {
+  .dates {
     position: absolute;
     z-index: 2;
   }
@@ -83,8 +80,8 @@ export const SearchBar = styled.div`
   }
 
   @media only screen and (max-width: 819px) {
-    .date {
-      top: 176px;
+    .dates {
+      top: 286px;
       left: -50px;
     }
   }
@@ -119,7 +116,7 @@ export const Options = styled.div`
   flex-direction: column;
 
   @media only screen and (max-width: 819px) {
-    top: 265px;
+    top: 374px;
   }
 `;
 
@@ -128,17 +125,10 @@ export const OptionItem = styled.div`
   padding: 10px;
   display: flex;
   justify-content: space-between;
-  /* align-items: center; */
-  /* margin: 10px; */
 `;
 export const OptionCounter = styled.div`
   display: flex;
   column-gap: 10px;
-  /* 
-  align-items: center;
-  
-  
-   */
 `;
 export const OptionCounterButton = styled.button`
   display: flex;
@@ -175,6 +165,28 @@ export const SearchInput = styled.input`
 
   @media screen and (max-width: 1500px) {
     border: none;
+    width: 100%;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+`;
+
+export const Select = styled.select`
+  display: block;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 17px;
+  margin-top: 15px;
+  border-top: none;
+  padding: 0px 7px 2px 7px;
+
+  &:focus {
+    border-bottom: 2px solid hsl(199, 100%, 33%);
+  }
+
+  @media screen and (max-width: 1500px) {
     width: 100%;
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
@@ -233,7 +245,7 @@ export const Properties = styled.div`
   margin-bottom: 30px;
 `;
 
-/*-- Mail --*/
+/*-- Section --*/
 
 export const CostBenefitSection = styled.div`
   background-image: linear-gradient(
@@ -263,13 +275,14 @@ export const CostBenefitSection = styled.div`
     border: none;
     border-radius: 3px;
     font-size: 18px;
-    cursor: pointer;
     width: 200px;
     transition: all 0.5s ease;
   }
 
-  button:hover {
-    transform: scale(1.15);
+  @media screen and (max-width: 1500px) {
+    h3 {
+      font-size: 3vw;
+    }
   }
 
   @media only screen and (max-width: 819px) {
@@ -278,9 +291,9 @@ export const CostBenefitSection = styled.div`
     }
   }
 
-  @media screen and (max-width: 1500px) {
+  @media screen and (max-width: 400px) {
     h3 {
-      font-size: 3.8vw;
+      font-size: 7.5vw;
     }
   }
 `;

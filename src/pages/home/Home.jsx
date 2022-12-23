@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { DateRange } from "react-date-range";
-import { format } from "date-fns";
+import { add, format } from "date-fns";
 
 //Images
 import search from "../../assets/search.png";
@@ -27,6 +27,7 @@ import {
   OptionItem,
   OptionCounter,
   OptionCounterButton,
+  Select,
 } from "./home.styles";
 
 //Components
@@ -35,21 +36,27 @@ import NavComponent from "../../components/nav/NavComponent";
 import FeaturedPropertyCard from "../../components/featuredPropertyCard/featuredPropertyCard";
 import PropertyTypesCard from "../../components/propertyTypesCard/propertyTypesCard";
 import PopularCountryCard from "../../components/popularCountryCard/popularCountryCard";
+import { SearchContext } from "../../context/SearchContext";
 
 const Home = () => {
-  const [destination, setDestination] = useState("");
-  const [showDate, setShowDate] = useState(false);
+  const [destination, setDestination] = useState();
+  const [type, setType] = useState();
+  const [showDates, setShowDates] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
-  const [date, setDate] = useState([
+  const tomorrowFns = add(new Date(), {
+    days: 1,
+  });
+
+  const [dates, setDates] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: tomorrowFns,
       key: "selection",
     },
   ]);
 
-  const [options, setOptions] = useState({ adult: 1, children: 0, room: 1 });
+  const [options, setOptions] = useState({ adult: 1, children: 0 });
   let navigate = useNavigate();
 
   const handleOption = (optionName, operation) => {
@@ -76,9 +83,25 @@ const Home = () => {
     });
   };
 
+  const { dispatch } = useContext(SearchContext);
+
+  useEffect(() => {
+    dispatch({ type: "RESET_SEARCH" });
+  }, []);
+
   const handleSearch = () => {
-    navigate("/propertyList", { state: { destination, date, options } });
+    dispatch({
+      type: "NEW_SEARCH",
+      payload: {
+        destinationContext: destination,
+        datesContext: dates,
+        optionsContext: options,
+        typeContext: type,
+      },
+    });
+    navigate("/propertyList");
   };
+
   return (
     <>
       <Header>
@@ -93,12 +116,22 @@ const Home = () => {
           <SearchBar>
             <form>
               <div>
-                <label>Location</label>
+                <label>What city are you going to?</label>
                 <SearchInput
                   type="text"
-                  placeholder="Where are you going?"
+                  placeholder="Write your destination here"
                   onChange={(e) => setDestination(e.target.value)}
                 />
+              </div>
+
+              <div>
+                <label>Property type</label>
+                <Select onChange={(e) => setType(e.target.value)}>
+                  <option value={type}>Choose type here</option>
+                  <option value="Hotel">Hotel</option>
+                  <option value="Apartment">Apartment</option>
+                  <option value="Cabin">Cabin</option>
+                </Select>
               </div>
 
               <div>
@@ -106,22 +139,22 @@ const Home = () => {
                 <SearchInput
                   type="text"
                   placeholder={`${format(
-                    date[0].startDate,
+                    dates[0].startDate,
                     "MM/dd/yyyy"
-                  )} to ${format(date[0].endDate, "MM/dd/yyyy")}`}
+                  )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}
                   onClick={() => {
-                    setShowDate(!showDate);
+                    setShowDates(!showDates);
                     setShowOptions(false);
                   }}
                 />
-                {showDate && (
+                {showDates && (
                   <DateRange
                     editableDateInputs={true}
-                    onChange={(item) => setDate([item.selection])}
+                    onChange={(item) => setDates([item.selection])}
                     moveRangeOnFirstSelection={false}
                     minDate={new Date()}
-                    ranges={date}
-                    className="date"
+                    ranges={dates}
+                    className="dates"
                   />
                 )}
               </div>
@@ -129,10 +162,10 @@ const Home = () => {
                 <label>Guests</label>
                 <SearchInput
                   type="text"
-                  placeholder={`${options.adult} adult · ${options.children} children · ${options.room} rooms`}
+                  placeholder={`${options.adult} adult · ${options.children} children`}
                   onClick={() => {
                     setShowOptions(!showOptions);
-                    setShowDate(false);
+                    setShowDates(false);
                   }}
                 />
 
@@ -181,28 +214,6 @@ const Home = () => {
                         </OptionCounterButton>
                       </OptionCounter>
                     </OptionItem>
-
-                    <OptionItem>
-                      <span className="optionText">Room</span>
-                      <OptionCounter>
-                        <OptionCounterButton
-                          type="button"
-                          disabled={options.room === 1}
-                          onClick={() => handleOption("room", "d")}
-                        >
-                          -
-                        </OptionCounterButton>
-                        <span className="optionCounterNumber">
-                          {options.room}
-                        </span>
-                        <OptionCounterButton
-                          type="button"
-                          onClick={() => handleOption("room", "i")}
-                        >
-                          +
-                        </OptionCounterButton>
-                      </OptionCounter>
-                    </OptionItem>
                   </Options>
                 )}
               </div>
@@ -232,7 +243,7 @@ const Home = () => {
         <span>
           Browse by the <Heat>BEST COST BENEFIT</Heat>
         </span>
-        <button>Yeah, show me!</button>
+        <button>Go book now!</button>
       </CostBenefitSection>
 
       <Container>

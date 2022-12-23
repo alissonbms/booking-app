@@ -45,6 +45,12 @@ export const Nav = styled.nav`
     }
   }
 
+  @media only screen and (max-width: 700px) {
+    .menu-icon {
+      top: 3%;
+    }
+  }
+
   @media screen and (min-width: 820px) and (max-width: 1156px) {
     max-height: 150px;
   }
@@ -116,6 +122,7 @@ export const AccountBtn = styled.div`
     outline: none;
     color: #fff;
     background-color: hsl(199, 100%, 33%);
+    cursor: pointer;
   }
 
   @media only screen and (max-width: 819px) {
@@ -140,7 +147,7 @@ export const Logo = styled.img`
   height: 50px;
   @media only screen and (max-width: 819px) {
     position: fixed;
-    top: 1%;
+    top: 1.5%;
     left: 2%;
   }
 `;

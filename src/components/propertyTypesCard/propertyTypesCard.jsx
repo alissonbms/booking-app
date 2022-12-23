@@ -1,14 +1,18 @@
 import useFetch from "../../hooks/useFetch";
-import { PropertyCard } from "./propertyTypesCard.styles";
+import { PropertyCard, LoaderContainer } from "./propertyTypesCard.styles";
+import Loading from "../loading/Loading";
+import { ClockLoader } from "react-spinners";
 
 const PropertyTypesCard = () => {
-  const { isLoading, data } = useFetch(
+  const { isFetching, data } = useFetch(
     "http://localhost:3003/api/property/countByType"
   );
   return (
     <>
-      {isLoading ? (
-        <h1>Loading please wait</h1>
+      {isFetching ? (
+        <LoaderContainer>
+          <ClockLoader color={"hsl(199,100%,33%)"} />
+        </LoaderContainer>
       ) : (
         <>
           <PropertyCard>

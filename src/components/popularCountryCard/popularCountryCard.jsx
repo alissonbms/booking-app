@@ -1,14 +1,21 @@
 import useFetch from "../../hooks/useFetch";
-import { CountryCard, Layer } from "./popularCountryCard.styles";
+import {
+  CountryCard,
+  Layer,
+  LoaderContainer,
+} from "./popularCountryCard.styles";
+import { ClockLoader } from "react-spinners";
 
 const PopularCountryCard = () => {
-  const { data, isLoading } = useFetch(
+  const { data, isFetching } = useFetch(
     "http://localhost:3003/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
   );
   return (
     <>
-      {isLoading ? (
-        <h1>Loading please wait</h1>
+      {isFetching ? (
+        <LoaderContainer>
+          <ClockLoader color={"hsl(199,100%,33%)"}/>
+        </LoaderContainer>
       ) : (
         <>
           <CountryCard>

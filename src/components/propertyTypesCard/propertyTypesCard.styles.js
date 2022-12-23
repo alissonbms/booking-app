@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  width: 100vw;
+`;
+
 export const PropertyCard = styled.div`
   img {
     width: 100%;

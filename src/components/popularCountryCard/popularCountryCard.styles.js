@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  width: 100vw;
+`;
+
 export const CountryCard = styled.div`
   position: relative;
   overflow: hidden;
@@ -15,7 +22,6 @@ export const CountryCard = styled.div`
 `;
 
 export const Layer = styled.div`
-  cursor: pointer;
   letter-spacing: 1px;
   transition: 0.3s;
   text-align: center;

@@ -5,14 +5,21 @@ import { useNavigate } from "react-router-dom";
 import { VscChromeClose } from "react-icons/vsc";
 import { BsChevronDoubleDown } from "react-icons/bs";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "./nav.styles.js";
 import { AccountBtn, Logo, Nav, NavLinks } from "./nav.styles.js";
+import { AuthContext } from "../../context/AuthContext";
 
 const NavComponent = ({ homeNav }) => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
+  const { user, dispatch } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    navigate("/");
+  };
 
   return (
     <>
@@ -38,8 +45,16 @@ const NavComponent = ({ homeNav }) => {
         )}
 
         <AccountBtn homeNav={homeNav}>
-          <a href="#">Register Now</a>
-          <a href="#">Login</a>
+          {user ? (
+            <a onClick={handleLogout}>
+              Hello {user.username}, wanna do logout?
+            </a>
+          ) : (
+            <>
+              <a onClick={() => navigate("/register")}>Register Now</a>
+              <a onClick={() => navigate("/login")}>Login</a>
+            </>
+          )}
           <div className="icons">
             {isVisible ? (
               <VscChromeClose

@@ -39,8 +39,8 @@ export const SiDistance = styled.span`
 `;
 
 export const SiSubtitle = styled.span`
-  font-size: 16px; /* color: #fff; */
-  color: #555; /* background-color: hsl(199, 100%, 33%); */
+  font-size: 16px;
+  color: #555;
   font-size: 18px;
   max-width: max-content;
 `;
@@ -87,7 +87,7 @@ export const SiDetailsTexts = styled.div`
 `;
 
 export const SiPrice = styled.span`
-  font-size: 35px; /* font-weight: 700; */
+  font-size: 35px;
   color: hsl(199, 100%, 33%);
   color: #bd0e54;
 `;
@@ -100,7 +100,7 @@ export const SiTaxiOp = styled.span`
 export const SiCheckButton = styled.button`
   font-size: 17px;
   background-color: hsl(199, 100%, 33%);
-  color: white; /* font-weight: bold; */
+  color: white;
   padding: 10px 5px;
   border: none;
   border-radius: 5px;

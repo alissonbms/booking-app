@@ -1,5 +1,6 @@
 import { MdLocationOn } from "react-icons/md";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import Reserve from "../../components/reserve/Reserve";
 //Styles
 import {
   PropertyAddress,
@@ -15,114 +16,133 @@ import {
 //Components
 import NavComponent from "../../components/nav/NavComponent";
 import useFetch from "../../hooks/useFetch";
+import { useContext } from "react";
+import { SearchContext } from "../../context/SearchContext";
+import Loading from "../../components/loading/Loading.jsx";
+import { AuthContext } from "../../context/AuthContext";
+import { useState, useEffect } from "react";
+import { add } from "date-fns/esm";
 
 const Property = () => {
+  const { user } = useContext(AuthContext);
+  const { dispatch, datesContext } = useContext(SearchContext);
+  const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    try {
+      const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+      function dayDifference(date1, date2) {
+        const timeDiff = Math.abs(date2.getTime() - date1.getTime());
+        const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
+        return diffDays;
+      }
+
+      setDays(
+        dayDifference(datesContext[0].startDate, datesContext[0].endDate)
+      );
+    } catch (error) {
+      if (error instanceof TypeError) {
+        navigate("/");
+      }
+    }
+  }, []);
+
+  const [days, setDays] = useState();
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const { data, isLoading } = useFetch(
+  const { data, isFetching } = useFetch(
     `http://localhost:3003/api/property/find/${id}`
   );
-  console.log(data);
+
+  const handleReserve = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/login");
+    }
+  };
 
   return (
     <>
-      <NavComponent />
-      <PropertyContainer>
-        <PropertyWrapper>
-          {isLoading ? (
-            <h1>Loading please wait</h1>
-          ) : (
-            <>
-              <PropertyTitle>{data?.name}</PropertyTitle>
-              <PropertyAddress>
-                <MdLocationOn />
-                <span>{data?.address}</span>
-              </PropertyAddress>
-              <PropertyImages>
-                {data.photos?.map((photo, i) => (
-                  <div key={i}>
-                    <img src={photo} alt={i} />
-                  </div>
-                ))}
-              </PropertyImages>
-              <PropertyDetails>
-                <PropertyDetailsText>
-                  <PropertyTitle>{data.headline}</PropertyTitle>
-                  <p>{data.description}</p>
-                </PropertyDetailsText>
+      {days === undefined ? (
+        <Loading />
+      ) : (
+        <>
+          <NavComponent />
+          <PropertyContainer>
+            <PropertyWrapper>
+              {isFetching ? (
+                <Loading />
+              ) : (
+                <>
+                  <PropertyTitle>{data?.name}</PropertyTitle>
+                  <PropertyAddress>
+                    <MdLocationOn />
+                    <span>{data?.address}</span>
+                  </PropertyAddress>
+                  <PropertyImages>
+                    {data.photos?.map((photo, i) => (
+                      <div key={i}>
+                        <img src={photo} alt={i} />
+                      </div>
+                    ))}
+                  </PropertyImages>
+                  <PropertyDetails>
+                    <PropertyDetailsText>
+                      <PropertyTitle>{data.headline}</PropertyTitle>
+                      <p>
+                        There are many variations of passages of Lorem Ipsum
+                        available, but the majority have suffered alteration in
+                        some form, by injected humour, or randomised words which
+                        don't look even slightly believable. If you are going to
+                        use a passage of Lorem Ipsum, you need to be sure there
+                        isn't anything embarrassing hidden in the middle of
+                        text. All the Lorem Ipsum generators on the Internet
+                        tend to repeat predefined chunks as necessary, making
+                        this the first true generator on the Internet. It uses a
+                        dictionary of over 200 Latin words, combined with a
+                        handful of model sentence structures, to generate Lorem
+                        Ipsum which looks reasonable. The generated Lorem Ipsum
+                        is therefore always free from repetition, injected
+                        humour, or non-characteristic words etc.
+                      </p>
+                    </PropertyDetailsText>
 
-                <PropertyDetailsPrice>
-                  <h1>Perfect for a 9-night stay!</h1>
-                  <span>
-                    Located in the real heart of Krakow, this property has an
-                    excellent location score of 9.8!
-                  </span>
-                  <h2>
-                    <b>$945</b> (9 nights)
-                  </h2>
-                  <button>Reserve or Book Now!</button>
-                </PropertyDetailsPrice>
-              </PropertyDetails>
-            </>
-          )}
-        </PropertyWrapper>
-
-        {/* <HotelWrapper>
-          <BookNow>Reserve or Book Now!</BookNow>
-          <HotelTitle>Grand Hotel</HotelTitle>
-          <HotelAddress>
-            <MdLocationOn />
-            <span>Elton St 125 New york</span>
-          </HotelAddress>
-          <HotelDistance>Excellent location - 500m from center</HotelDistance>
-          <HotelPriceHighlight>
-            Book a stay over $114 at this property and get a free airport taxi
-          </HotelPriceHighlight>
-          <HotelImages>
-            {photos.map((photo, i) => (
-              <HotelImgWrapper>
-                <img
-                  src={photo.src}
-                  alt=""
-                  className="hotelImg"
-                  // onClick={() => handleOpen(i)}
-                />
-              </HotelImgWrapper>
-            ))}
-          </HotelImages>
-          <HotelDetails>
-            <HotelDetailsText>
-              <HotelTitle>Stay in the heart of City</HotelTitle>
-              <p>
-                Located a 5-minute walk from St. Florian's Gate in Krakow, Tower
-                Street Apartments has accommodations with air conditioning and
-                free WiFi. The units come with hardwood floors and feature a
-                fully equipped kitchenette with a microwave, a flat-screen TV,
-                and a private bathroom with shower and a hairdryer. A fridge is
-                also offered, as well as an electric tea pot and a coffee
-                machine. Popular points of interest near the apartment include
-                Cloth Hall, Main Market Square and Town Hall Tower. The nearest
-                airport is John Paul II International Kraków–Balice, 16.1 km
-                from Tower Street Apartments, and the property offers a paid
-                airport shuttle service.
-              </p>
-            </HotelDetailsText>
-
-            <HotelDetailsPrice>
-              <h1>Perfect for a 9-night stay!</h1>
-              <span>
-                Located in the real heart of Krakow, this property has an
-                excellent location score of 9.8!
-              </span>
-              <h2>
-                <b>$945</b> (9 nights)
-              </h2>
-              <button>Reserve or Book Now!</button>
-            </HotelDetailsPrice>
-          </HotelDetails>
-        </HotelWrapper> */}
-        {/* <FooterComponent /> */}
-      </PropertyContainer>
+                    <PropertyDetailsPrice>
+                      <h1>
+                        {days === 0
+                          ? `Perfect for a morning and afternoon stay!`
+                          : `Perfect for a ${days}-night stay!`}
+                      </h1>
+                      <span>
+                        Located in the real heart of {data.city}, this property
+                        has an excellent location
+                        {data.rating && ` score of ${data.rating}.0`}!
+                      </span>
+                      <h2>
+                        <b>
+                          $
+                          {days === 0
+                            ? data.cheapestPrice
+                            : days * data.cheapestPrice}{" "}
+                        </b>
+                        {days === 0
+                          ? "peer room"
+                          : `(${days} nights) peer room`}
+                      </h2>
+                      <button onClick={handleReserve}>
+                        Reserve or Book Now!
+                      </button>
+                    </PropertyDetailsPrice>
+                  </PropertyDetails>
+                </>
+              )}
+            </PropertyWrapper>
+          </PropertyContainer>
+          {openModal && <Reserve setOpen={setOpenModal} propertyid={id} />}
+        </>
+      )}
     </>
   );
 };

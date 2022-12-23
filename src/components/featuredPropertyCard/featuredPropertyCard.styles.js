@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
+export const LoaderContainer = styled.div`
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  width: 100vw;
+`;
+
 export const FeaturedCard = styled.div`
+  cursor: pointer;
   flex: 1;
   min-width: 260px;
   display: flex;
@@ -21,14 +29,12 @@ export const FeaturedCard = styled.div`
     height: 360px;
     object-fit: cover;
     object-position: center;
-    cursor: pointer;
   }
 `;
 
 export const FpName = styled.span`
   font-weight: bold;
   color: #333;
-  cursor: pointer;
 `;
 
 export const FpCity = styled.span`

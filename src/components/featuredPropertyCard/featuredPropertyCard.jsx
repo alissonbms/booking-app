@@ -1,5 +1,6 @@
 import useFetch from "../../hooks/useFetch";
 import {
+  LoaderContainer,
   FeaturedCard,
   FpCity,
   FpName,
@@ -7,19 +8,32 @@ import {
   FpRating,
 } from "./featuredPropertyCard.styles";
 import { AiFillStar } from "react-icons/ai";
+import { ClockLoader } from "react-spinners";
+import { useContext, useEffect, useState } from "react";
+import { SearchContext } from "../../context/SearchContext";
+import { useNavigate } from "react-router-dom";
+import { add } from "date-fns/esm";
 
 const FeaturedPropertyCard = () => {
-  const { data, isLoading } = useFetch(
+  const navigate = useNavigate();
+
+  const { data, isFetching } = useFetch(
     "http://localhost:3003/api/property?featured=true&limit=5"
   );
+
   return (
     <>
-      {isLoading ? (
-        <h1>Loading please wait</h1>
+      {isFetching ? (
+        <LoaderContainer>
+          <ClockLoader color={"hsl(199,100%,33%)"} />
+        </LoaderContainer>
       ) : (
         <>
           {data?.map((property) => (
-            <FeaturedCard key={property._id}>
+            <FeaturedCard
+              key={property._id}
+              onClick={() => navigate(`/property/${property._id}`)}
+            >
               <img src={property.photos[0]} />
               <FpName>{property.name}</FpName>
               <FpCity>{property.city}</FpCity>

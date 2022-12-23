@@ -8,7 +8,6 @@ import {
   SiDetails,
   SiDetailsTexts,
   SiDistance,
-  SiFeatures,
   SiPrice,
   SiRating,
   SiSubtitle,
@@ -27,7 +26,6 @@ const SearchItem = ({ property }) => {
         <SiDistance>{property.distance} from center</SiDistance>
         <span>Free airport taxi</span>
         <SiSubtitle>{property.headline}</SiSubtitle>
-        <SiFeatures>{property.description}</SiFeatures>
       </SiDesc>
       <SiDetails>
         {property.rating && (
