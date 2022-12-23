@@ -30,6 +30,10 @@ export const FeaturedCard = styled.div`
     object-fit: cover;
     object-position: center;
   }
+
+  @media only screen and (max-width: 320px) {
+    min-width: 200px;
+  }
 `;
 
 export const FpName = styled.span`

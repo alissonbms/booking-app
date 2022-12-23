@@ -39,20 +39,23 @@ export const Nav = styled.nav`
     .menu-icon {
       display: block;
       position: fixed;
-      top: 2%;
+      top: 2.5%;
       right: 7%;
       cursor: pointer;
     }
   }
 
-  @media only screen and (max-width: 700px) {
-    .menu-icon {
-      top: 3%;
-    }
-  }
-
   @media screen and (min-width: 820px) and (max-width: 1156px) {
     max-height: 150px;
+  }
+  @media only screen and (max-width: 370px) {
+    .menu-icon {
+      right: 2.8%;
+      top: 3%;
+
+      /* height: 80vh;
+      object-fit: contain; */
+    }
   }
 `;
 
@@ -149,5 +152,11 @@ export const Logo = styled.img`
     position: fixed;
     top: 1.5%;
     left: 2%;
+  }
+
+  @media only screen and (max-width: 370px) {
+    left: 1%;
+    width: 80vw;
+    object-fit: contain;
   }
 `;

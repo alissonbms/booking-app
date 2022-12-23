@@ -236,6 +236,11 @@ export const Exclusives = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 20px;
+
+  @media only screen and (max-width: 320px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 export const Properties = styled.div`
@@ -243,6 +248,11 @@ export const Properties = styled.div`
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-gap: 50px;
   margin-bottom: 30px;
+
+  @media only screen and (max-width: 320px) {
+    display: flex;
+    flex-direction: column;
+  }
 `;
 
 /*-- Section --*/
@@ -264,6 +274,7 @@ export const CostBenefitSection = styled.div`
   h3 {
     font-size: 2vw;
   }
+
   span {
     font-size: 20px;
   }
@@ -296,6 +307,16 @@ export const CostBenefitSection = styled.div`
       font-size: 7.5vw;
     }
   }
+
+  @media only screen and (max-width: 320px) {
+    span {
+      font-size: 15px;
+    }
+
+    h3 {
+      font-size: 7.8vw;
+    }
+  }
 `;
 export const Heat = styled.span`
   text-transform: uppercase;
@@ -310,6 +331,10 @@ export const FP = styled.div`
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 20px;
+
+  @media only screen and (max-width: 320px) {
+    width: 100%;
+  }
 `;
 
 /* --About-- */
