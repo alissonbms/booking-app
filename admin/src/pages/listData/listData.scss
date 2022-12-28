@@ -1,0 +1,11 @@
+.list {
+  display: flex;
+
+  .listContainer {
+    flex: 7;
+
+    @media only screen and (max-width: 580px) {
+      min-width: 100%;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+.navbar {
+  border-bottom: 0.5px solid rgb(231, 228, 228);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
+
+  .wrapper {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logoContainer {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      .menuIcon {
+        display: block;
+      }
+
+      .logo {
+        font-size: 22px;
+        font-weight: bold;
+        color: #6439ff;
+      }
+    }
+
+    .items {
+      display: flex;
+      align-items: center;
+      margin-right: 20px;
+      position: relative;
+      gap: 15px;
+
+      .item {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 3px;
+
+        .icon {
+          font-size: 22px;
+        }
+
+        .avatar {
+          width: 34px;
+          height: 34px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+}

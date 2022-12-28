@@ -1,0 +1,108 @@
+.single {
+  display: flex;
+
+  .singleContainer {
+    flex: 7;
+    width: 50vw;
+
+    @media only screen and (max-width: 610px) {
+      min-width: 100%;
+    }
+
+    .title {
+      font-size: 22px;
+      color: gray;
+      margin-bottom: 20px;
+    }
+
+    .top {
+      padding: 20px;
+
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+
+      @media only screen and (max-width: 1700px) {
+        flex-direction: column;
+      }
+
+      .left {
+        -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.7);
+        box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.7);
+        flex: 1;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+
+        .editButton {
+          position: absolute;
+          top: 0;
+          right: 0;
+          padding: 5px;
+          font-size: 12px;
+          color: #7451f8;
+          background-color: #7551f818;
+          cursor: pointer;
+          border-radius: 0px 0px 0px 5px;
+        }
+
+        .item {
+          display: flex;
+          gap: 20px;
+
+          .itemImg {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .itemTitle {
+              color: #555;
+            }
+
+            .detailItem {
+              display: flex;
+              gap: 5px;
+              align-items: center;
+
+              .itemKey {
+                font-weight: bold;
+                color: gray;
+              }
+
+              .itemValue {
+                font-weight: 300;
+              }
+
+              @media only screen and (max-width: 380px) {
+                flex-wrap: wrap;
+              }
+            }
+          }
+
+          @media only screen and (max-width: 280px) {
+            flex-wrap: wrap;
+          }
+        }
+      }
+
+      .right {
+        width: 100%;
+        flex: 2;
+      }
+    }
+
+    .bottom {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.7);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.7);
+      padding: 20px;
+      margin: 20px;
+    }
+  }
+}

@@ -1,0 +1,41 @@
+.home {
+  display: flex;
+
+  .container {
+    flex: 7;
+    width: 50vw;
+
+    @media only screen and (max-width: 610px) {
+      min-width: 100%;
+    }
+
+    .widgets,
+    .charts {
+      width: 100%;
+      display: flex;
+      gap: 50px;
+      padding: 20px;
+      flex-wrap: wrap;
+    }
+
+    .charts {
+      @media only screen and (max-width: 1400px) {
+        flex-direction: column;
+      }
+    }
+
+    .listContainer {
+      -webkit-box-shadow: 2px 4px 10px 1px rgba(0, 0, 0, 0.7);
+      box-shadow: 2px 4px 10px 1px rgba(201, 201, 201, 0.7);
+      padding: 20px;
+      margin: 20px;
+
+      .listTitle {
+        font-size: 18px;
+        color: gray;
+        font-weight: 500;
+        margin-bottom: 15px;
+      }
+    }
+  }
+}
