@@ -51,9 +51,7 @@ const Property = () => {
   const [days, setDays] = useState();
   const location = useLocation();
   const id = location.pathname.split("/")[2];
-  const { data, isFetching } = useFetch(
-    `http://localhost:3003/api/property/find/${id}`
-  );
+  const { data, isFetching } = useFetch(`/api/property/find/${id}`);
 
   const handleReserve = () => {
     if (user) {

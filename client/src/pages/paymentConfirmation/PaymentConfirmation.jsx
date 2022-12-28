@@ -45,12 +45,9 @@ const PaymentConfirmation = () => {
     try {
       await Promise.all(
         selectedRoomsContext.map((room) => {
-          const res = axios.patch(
-            `http://localhost:3003/api/room/availability/${room}`,
-            {
-              dates: allDatesContext,
-            }
-          );
+          const res = axios.patch(`/api/room/availability/${room}`, {
+            dates: allDatesContext,
+          });
           return res.data;
         })
       );

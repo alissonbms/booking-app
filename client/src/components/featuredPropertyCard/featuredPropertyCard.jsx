@@ -17,9 +17,7 @@ import { add } from "date-fns/esm";
 const FeaturedPropertyCard = () => {
   const navigate = useNavigate();
 
-  const { data, isFetching } = useFetch(
-    "http://localhost:3003/api/property?featured=true&limit=5"
-  );
+  const { data, isFetching } = useFetch("/api/property?featured=true&limit=5");
 
   return (
     <>

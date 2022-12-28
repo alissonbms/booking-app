@@ -29,10 +29,7 @@ const Login = () => {
 
     dispatch({ type: "AUTHENTICATION_START" });
     try {
-      const response = await axios.post(
-        "http://localhost:3003/api/auth/Login",
-        credentials
-      );
+      const response = await axios.post("/api/auth/Login", credentials);
       dispatch({
         type: "AUTHENTICATION_SUCCESS",
         payload: response.data,

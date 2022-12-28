@@ -4,9 +4,7 @@ import Loading from "../loading/Loading";
 import { ClockLoader } from "react-spinners";
 
 const PropertyTypesCard = () => {
-  const { isFetching, data } = useFetch(
-    "http://localhost:3003/api/property/countByType"
-  );
+  const { isFetching, data } = useFetch("/api/property/countByType");
   return (
     <>
       {isFetching ? (

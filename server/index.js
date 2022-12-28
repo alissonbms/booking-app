@@ -35,7 +35,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/room", roomRouter);
 app.use("/api/property", propertyRouter);
-app.use("/", stripeRouter);
+app.use("/api/stripe", stripeRouter);
 
 app.use(errorHandler);
 

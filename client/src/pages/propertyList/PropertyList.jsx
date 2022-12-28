@@ -81,7 +81,7 @@ const Properties = () => {
   };
 
   const { data, isFetching, reFetch } = useFetch(
-    `http://localhost:3003/api/property?city=${destination}&type=${type}&min=${min}&max=${max}&guests=${guests}`
+    `/api/property?city=${destination}&type=${type}&min=${min}&max=${max}&guests=${guests}`
   );
   return (
     <>

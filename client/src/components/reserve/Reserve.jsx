@@ -36,7 +36,7 @@ const Reserve = ({ setOpen, propertyid }) => {
     useContext(ReserveContext);
 
   const { data, isFetching, error } = useFetch(
-    `http://localhost:3003/api/property/rooms/${propertyid}`
+    `/api/property/rooms/${propertyid}`
   );
 
   const handleSelect = (value, checked, price) => {
@@ -111,10 +111,9 @@ const Reserve = ({ setOpen, propertyid }) => {
         setOpen(false);
       };
 
-      const { data } = await axios.post(
-        `http://localhost:3003/create-checkout-session`,
-        { buyRooms }
-      );
+      const { data } = await axios.post(`/api/stripe/create-checkout-session`, {
+        buyRooms,
+      });
 
       close();
       window.location.href = data.url;
@@ -124,22 +123,6 @@ const Reserve = ({ setOpen, propertyid }) => {
       setIsLoading(false);
     }
   };
-  // try {
-  //   await Promise.all(
-  //     selectedRooms.map((room) => {
-  //       const res = axios.patch(
-  //         `http://localhost:3003/api/room/availability/${room}`,
-  //         {
-  //           dates: allDates,
-  //         }
-  //       );
-  //       return res.data;
-  //     })
-  //   );
-  //   navigate("/");
-  // } catch (error) {
-  //   console.log(error);
-  // }
 
   useEffect(() => {
     console.log(datesContext);

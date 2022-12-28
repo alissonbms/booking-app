@@ -8,13 +8,13 @@ import { ClockLoader } from "react-spinners";
 
 const PopularCountryCard = () => {
   const { data, isFetching } = useFetch(
-    "http://localhost:3003/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
+    "/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
   );
   return (
     <>
       {isFetching ? (
         <LoaderContainer>
-          <ClockLoader color={"hsl(199,100%,33%)"}/>
+          <ClockLoader color={"hsl(199,100%,33%)"} />
         </LoaderContainer>
       ) : (
         <>

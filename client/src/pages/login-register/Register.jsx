@@ -30,10 +30,7 @@ const Register = () => {
 
     dispatch({ type: "AUTHENTICATION_START" });
     try {
-      const response = await axios.post(
-        "http://localhost:3003/api/auth/register",
-        credentials
-      );
+      const response = await axios.post("/api/auth/register", credentials);
       console.log(response);
       dispatch({
         type: "AUTHENTICATION_SUCCESS",
