@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 import { useContext } from "react";
 
 // Styles
@@ -21,50 +26,93 @@ import {
   productRows,
 } from "./datatableSource";
 import { DarkModeContext } from "./contexts/DarkModeContext";
+import { AuthContext } from "./contexts/AuthContext";
 
 const App = () => {
   const { darkMode } = useContext(DarkModeContext);
 
+  const ProtectedRoute = ({ children }) => {
+    const { user } = useContext(AuthContext);
+
+    if (user) {
+      return children;
+    } else {
+      return <Navigate to="/login" />;
+    }
+  };
   return (
     <div className={darkMode ? "app dark" : "app"}>
       <Router>
         <Routes>
           <Route path="/">
-            <Route index element={<Home />} />
+            <Route
+              index
+              element={
+                <ProtectedRoute>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route path="login" element={<Login />} />
 
             <Route path="users">
               <Route
                 index
                 element={
-                  <ListData
-                    dataColumns={userColumns}
-                    dataRows={userRows}
-                    title="Users"
-                  />
+                  <ProtectedRoute>
+                    <ListData
+                      dataColumns={userColumns}
+                      dataRows={userRows}
+                      title="Users"
+                    />
+                  </ProtectedRoute>
                 }
               />
-              <Route path=":userid" element={<Single />} />
+              <Route
+                path=":userid"
+                element={
+                  <ProtectedRoute>
+                    <Single />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="new"
-                element={<New title="Add new User" inputs={userInputs} />}
+                element={
+                  <ProtectedRoute>
+                    <New title="Add new User" inputs={userInputs} />
+                  </ProtectedRoute>
+                }
               />
             </Route>
             <Route path="products">
               <Route
                 index
                 element={
-                  <ListData
-                    dataColumns={productColumns}
-                    dataRows={productRows}
-                    title="Products"
-                  />
+                  <ProtectedRoute>
+                    <ListData
+                      dataColumns={productColumns}
+                      dataRows={productRows}
+                      title="Products"
+                    />
+                  </ProtectedRoute>
                 }
               />
-              <Route path=":productid" element={<Single />} />
+              <Route
+                path=":productid"
+                element={
+                  <ProtectedRoute>
+                    <Single />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="new"
-                element={<New title="Add new Product" inputs={productInputs} />}
+                element={
+                  <ProtectedRoute>
+                    <New title="Add new Product" inputs={productInputs} />
+                  </ProtectedRoute>
+                }
               />
             </Route>
           </Route>

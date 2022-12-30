@@ -44,7 +44,7 @@ const Datatable = ({ dataRows, dataColumns, title }) => {
         rows={dataRows}
         columns={dataColumns.concat(actionColumn)}
         pageSize={9}
-        rowsPerPageOptions={[8]}
+        rowsPerPageOptions={[9]}
         checkboxSelection
       />
     </div>

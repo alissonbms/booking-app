@@ -32,7 +32,7 @@ const Login = () => {
       const response = await axios.post("/api/auth/Login", credentials);
       dispatch({
         type: "AUTHENTICATION_SUCCESS",
-        payload: response.data,
+        payload: response.data.details,
       });
       navigate("/");
     } catch (error) {
