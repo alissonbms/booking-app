@@ -37,7 +37,16 @@ const SearchItem = ({ property }) => {
         <SiDetailsTexts>
           <SiPrice>${property.cheapestPrice}</SiPrice>
           <SiTaxiOp>Includes taxes and fees</SiTaxiOp>
-          <SiCheckButton onClick={() => navigate(`/property/${property._id}`)}>
+          <SiCheckButton
+            onClick={() =>
+              navigate(`/property/${property._id}`, {
+                state: {
+                  propertyName: property.name,
+                  propertyPhoto: property.photos[0],
+                },
+              })
+            }
+          >
             See availability
           </SiCheckButton>
         </SiDetailsTexts>

@@ -1,10 +1,11 @@
-import { Input, Container, Wrapper, Title, Button } from "./styles";
+import { Input, Container, Wrapper, Title, Button, Advices } from "./styles";
 import NavComponent from "../../components/nav/NavComponent";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Loading from "../../components/loading/Loading";
+
 const Login = () => {
   const { dispatch, isAuthenticating, user, error } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -79,7 +80,16 @@ const Login = () => {
               <Button disabled={isAuthenticating} onClick={handleClick}>
                 Login
               </Button>
-              {error && <span>{error.message}</span>}
+              <Advices>
+                <p
+                  onClick={() =>
+                    (window.location.href = "http://127.0.0.1:3005/login")
+                  }
+                >
+                  Want to see the dashboard?
+                </p>
+              </Advices>
+              {error && <span className="error">{error.message}</span>}
             </Wrapper>
           </Container>
         </>

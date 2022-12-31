@@ -10,6 +10,7 @@ import userRouter from "./routes/userRouter.js";
 import roomRouter from "./routes/roomRouter.js";
 import propertyRouter from "./routes/propertyRouter.js";
 import stripeRouter from "./utils/stripe.js";
+import transactionRouter from "./routes/transactionRouter.js";
 
 import cors from "cors";
 import errorHandler from "./utils/errorHandler.js";
@@ -36,6 +37,7 @@ app.use("/api/user", userRouter);
 app.use("/api/room", roomRouter);
 app.use("/api/property", propertyRouter);
 app.use("/api/stripe", stripeRouter);
+app.use("/api/transaction", transactionRouter);
 
 app.use(errorHandler);
 

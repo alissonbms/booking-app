@@ -8,13 +8,46 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const Advices = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* p {
+    cursor: pointer;
+  } */
+
+  p {
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  p::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 2px;
+    background: hsl(199, 100%, 33%);
+    transition: width 0.3s;
+  }
+
+  p:hover::after {
+    width: 50%;
+  }
+
+  @media screen and (max-width: 800px) {
+    p:hover::after {
+      width: 80%;
+    }
+  }
+`;
+
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 15px;
   align-items: center;
 
-  span {
+  .error {
     padding: 5px 10px;
     box-shadow: 1px 1px 5px #555;
     color: red;

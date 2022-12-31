@@ -37,6 +37,7 @@ import FeaturedPropertyCard from "../../components/featuredPropertyCard/featured
 import PropertyTypesCard from "../../components/propertyTypesCard/propertyTypesCard";
 import PopularCountryCard from "../../components/popularCountryCard/popularCountryCard";
 import { SearchContext } from "../../context/SearchContext";
+import { TransactionContext } from "../../context/TransactionContext";
 
 const Home = () => {
   const [destination, setDestination] = useState();
@@ -84,8 +85,10 @@ const Home = () => {
   };
 
   const { dispatch } = useContext(SearchContext);
+  const { transactionDispatch } = useContext(TransactionContext);
 
   useEffect(() => {
+    //transactionDispatch({ type: "RESET_TRANSACTION" });
     dispatch({ type: "RESET_SEARCH" });
   }, []);
 

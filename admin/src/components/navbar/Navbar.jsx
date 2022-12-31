@@ -12,10 +12,12 @@ import "./navbar.scss";
 //Utilities
 import { SidebarContext } from "../../contexts/SidebarContext";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Navbar = () => {
   const { setOpenSidebar, openSidebar } = useContext(SidebarContext);
   const { dispatch, darkMode } = useContext(DarkModeContext);
+  const { user, authDispatch } = useContext(AuthContext);
 
   const handleDarkMode = () => {
     dispatch({ type: "DARK" });
@@ -25,6 +27,10 @@ const Navbar = () => {
   const handleLightMode = () => {
     dispatch({ type: "LIGHT" });
     document.body.style.backgroundColor = "#fff";
+  };
+
+  const handleLogout = () => {
+    authDispatch({ type: "LOGOUT" });
   };
 
   return (
@@ -54,13 +60,9 @@ const Navbar = () => {
             )}
           </div>
           <div className="item">
-            <img
-              src="https://images.pexels.com/photos/941693/pexels-photo-941693.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-              alt=""
-              className="avatar"
-            />
+            <img src={user.photo} alt="" className="avatar" />
           </div>
-          <div className="item">
+          <div className="item" onClick={handleLogout}>
             <LogoutIcon className="icon" />
           </div>
         </div>

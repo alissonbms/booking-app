@@ -52,9 +52,6 @@ export const Nav = styled.nav`
     .menu-icon {
       right: 2.8%;
       top: 3%;
-
-      /* height: 80vh;
-      object-fit: contain; */
     }
   }
 `;

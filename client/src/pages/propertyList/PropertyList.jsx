@@ -226,7 +226,7 @@ const Properties = () => {
                       <>
                         {data?.map((property) => (
                           <SearchItem property={property} key={property._id} />
-                        ))}{" "}
+                        ))}
                       </>
                     )}
                   </>

@@ -4,8 +4,10 @@ import { BsCheck2Circle } from "react-icons/bs";
 import { TfiFaceSad } from "react-icons/tfi";
 import Loading from "../../components/loading/Loading";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { ReserveContext } from "../../context/ReserveContext";
+import { TransactionContext } from "../../context/TransactionContext";
+import { AuthContext } from "../../context/AuthContext";
 
 const PaymentConfirmation = () => {
   const navigate = useNavigate();
@@ -13,6 +15,11 @@ const PaymentConfirmation = () => {
 
   const { dispatch, selectedRoomsContext, allDatesContext } =
     useContext(ReserveContext);
+
+  const { user } = useContext(AuthContext);
+
+  const { propertyPhoto, propertyName, valuePayed } =
+    useContext(TransactionContext);
 
   const success = searchParams.get("success");
   const canceled = searchParams.get("canceled");
@@ -51,6 +58,15 @@ const PaymentConfirmation = () => {
           return res.data;
         })
       );
+
+      await axios.post("/api/transaction", {
+        customer: user.username,
+        customerEmail: user.email,
+        propertyPhoto,
+        propertyName,
+        valuePayed,
+      });
+
       dispatch({ type: "RESET_RESERVE" });
     } catch (error) {
       console.log(error);

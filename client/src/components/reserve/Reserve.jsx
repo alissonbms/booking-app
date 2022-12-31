@@ -21,7 +21,7 @@ import { ClockLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { ReserveContext } from "../../context/ReserveContext";
 
-const Reserve = ({ setOpen, propertyid }) => {
+const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
   const navigate = useNavigate();
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -73,8 +73,6 @@ const Reserve = ({ setOpen, propertyid }) => {
     datesContext[0].endDate
   );
 
-  console.log(allDates);
-
   const isAvailable = (roomNumber) => {
     const isFound = roomNumber.unavailableDates.some((date) =>
       allDates.includes(new Date(date).getTime())
@@ -82,14 +80,6 @@ const Reserve = ({ setOpen, propertyid }) => {
 
     return isFound;
   };
-
-  // const isAvailable = (roomNumber) => {
-  //   roomNumber.unavailableDates.map((date) => {
-  //     console.log(new Date(date).getTime());
-  //   });
-
-  //   return isFound;
-  // };
 
   const handleClick = async () => {
     if (!selectedRooms.length) {
@@ -110,6 +100,10 @@ const Reserve = ({ setOpen, propertyid }) => {
       const close = () => {
         setOpen(false);
       };
+
+      localStorage.setItem("propertyName", JSON.stringify(propertyName));
+      localStorage.setItem("propertyPhoto", JSON.stringify(propertyPhoto));
+      localStorage.setItem("valuePayed", JSON.stringify(totalPrice));
 
       const { data } = await axios.post(`/api/stripe/create-checkout-session`, {
         buyRooms,

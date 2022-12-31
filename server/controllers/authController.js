@@ -10,9 +10,9 @@ import {
 } from "../utils/customErrors.js";
 
 export const register = async (req, res, next) => {
-  const { username, password, email } = req.body;
+  const { username, password, email, country, city, phone, photo } = req.body;
 
-  if (!username || !email || !password) {
+  if (!username || !email || !password || !country || !city || !phone) {
     return next(allFieldsAreRequiredError());
   }
 
@@ -29,6 +29,10 @@ export const register = async (req, res, next) => {
     const newUser = await UserModel.create({
       username,
       email,
+      photo,
+      country,
+      city,
+      phone,
       isAdmin: false,
       password: hashedPassword,
     });

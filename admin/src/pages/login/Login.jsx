@@ -11,7 +11,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { dispatch, isAuthenticating, user, error } = useContext(AuthContext);
+  const { authDispatch, isAuthenticating, user, error } =
+    useContext(AuthContext);
 
   const [credentials, setCredentials] = useState({
     username: undefined,
@@ -26,26 +27,26 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    dispatch({ type: "AUTHENTICATION_START" });
+    authDispatch({ type: "AUTHENTICATION_START" });
     try {
       const response = await axios.post("/api/auth/Login", credentials);
 
       if (response.data.isAdmin) {
-        dispatch({
+        authDispatch({
           type: "AUTHENTICATION_SUCCESS",
           payload: response.data.details,
         });
 
         navigate("/");
       } else {
-        dispatch({
+        authDispatch({
           type: "AUTHENTICATION_FAILURE",
           payload: { message: "You are not an administrator!" },
         });
       }
     } catch (error) {
       console.log(error);
-      dispatch({
+      authDispatch({
         type: "AUTHENTICATION_FAILURE",
         payload: error.response.data,
       });

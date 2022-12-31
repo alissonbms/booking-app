@@ -20,9 +20,11 @@ import "./sidebar.scss";
 
 //Utilities
 import { DarkModeContext } from "../../contexts/DarkModeContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Sidebar = () => {
   const { dispatch } = useContext(DarkModeContext);
+  const { authDispatch } = useContext(AuthContext);
 
   const handleDarkMode = () => {
     dispatch({ type: "DARK" });
@@ -32,6 +34,10 @@ const Sidebar = () => {
   const handleLightMode = () => {
     dispatch({ type: "LIGHT" });
     document.body.style.backgroundColor = "#fff";
+  };
+
+  const handleLogout = () => {
+    authDispatch({ type: "LOGOUT" });
   };
 
   return (
@@ -95,7 +101,7 @@ const Sidebar = () => {
             <AccountCircleOutlinedIcon className="icon" />
             <span>Profile</span>
           </li>
-          <li>
+          <li onClick={handleLogout}>
             <LogoutIcon className="icon" />
             <span>Logout</span>
           </li>

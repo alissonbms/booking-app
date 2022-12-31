@@ -1,4 +1,4 @@
-import { Input, Container, Wrapper, Title, Button } from "./styles";
+import { Input, Container, Wrapper, Title, Button, Advices } from "./styles";
 import NavComponent from "../../components/nav/NavComponent";
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthContext";
@@ -31,7 +31,6 @@ const Register = () => {
     dispatch({ type: "AUTHENTICATION_START" });
     try {
       const response = await axios.post("/api/auth/register", credentials);
-      console.log(response);
       dispatch({
         type: "AUTHENTICATION_SUCCESS",
         payload: response.data,
@@ -81,7 +80,12 @@ const Register = () => {
               <Button disabled={isAuthenticating} onClick={handleClick}>
                 Register
               </Button>
-              {error && <span>{error.message}</span>}
+              {error && <span className="error">{error.message}</span>}
+              <Advices>
+                <p onClick={() => navigate("/login")}>
+                  Already have an account?
+                </p>
+              </Advices>
             </Wrapper>
           </Container>
         </>

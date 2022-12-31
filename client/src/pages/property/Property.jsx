@@ -51,13 +51,15 @@ const Property = () => {
   const [days, setDays] = useState();
   const location = useLocation();
   const id = location.pathname.split("/")[2];
+  const propertyName = location.state.propertyName;
+  const propertyPhoto = location.state.propertyPhoto;
   const { data, isFetching } = useFetch(`/api/property/find/${id}`);
 
   const handleReserve = () => {
     if (user) {
       setOpenModal(true);
     } else {
-      navigate("/login");
+      navigate("/register");
     }
   };
 
@@ -138,7 +140,14 @@ const Property = () => {
               )}
             </PropertyWrapper>
           </PropertyContainer>
-          {openModal && <Reserve setOpen={setOpenModal} propertyid={id} />}
+          {openModal && (
+            <Reserve
+              setOpen={setOpenModal}
+              propertyid={id}
+              propertyName={propertyName}
+              propertyPhoto={propertyPhoto}
+            />
+          )}
         </>
       )}
     </>
