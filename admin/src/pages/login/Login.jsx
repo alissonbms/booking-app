@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import axios from "axios";
 
 //Styles
@@ -79,6 +78,9 @@ const Login = () => {
         <button disabled={isAuthenticating} onClick={handleClick}>
           Login
         </button>
+        <p onClick={() => (window.location.href = "http://127.0.0.1:3006")}>
+          Go to BookingGood website
+        </p>
         {error && <span>{error.message}</span>}
       </div>
       <div className="loginBackgroundWrapper">

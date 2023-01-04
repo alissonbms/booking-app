@@ -1,4 +1,6 @@
 import UserModel from "../models/User.js";
+import TransactionModel from "../models/Transaction.js";
+
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
@@ -17,9 +19,11 @@ export const register = async (req, res, next) => {
   }
 
   const existingEmail = await UserModel.findOne({ email });
-
-  if (existingEmail) {
-    return next(createError(409, "Email already in use. You cannot use it"));
+  const emailWithTransaction = await TransactionModel.findOne({
+    customerEmail: email,
+  });
+  if (existingEmail || emailWithTransaction) {
+    return next(createError(409, "You cannot use this email, change it"));
   }
 
   try {

@@ -44,6 +44,7 @@ const Home = () => {
   const [type, setType] = useState();
   const [showDates, setShowDates] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
+  const [errorSearch, setErrorSearch] = useState(false);
 
   const tomorrowFns = add(new Date(), {
     days: 1,
@@ -93,16 +94,22 @@ const Home = () => {
   }, []);
 
   const handleSearch = () => {
-    dispatch({
-      type: "NEW_SEARCH",
-      payload: {
-        destinationContext: destination,
-        datesContext: dates,
-        optionsContext: options,
-        typeContext: type,
-      },
-    });
-    navigate("/propertyList");
+    if (destination === undefined || type === undefined) {
+      setErrorSearch(true);
+      document.getElementById("dest").style.borderBottom = "2px solid red";
+      document.getElementById("ty").style.borderBottom = "2px solid red";
+    } else {
+      dispatch({
+        type: "NEW_SEARCH",
+        payload: {
+          destinationContext: destination,
+          datesContext: dates,
+          optionsContext: options,
+          typeContext: type,
+        },
+      });
+      navigate("/propertyList");
+    }
   };
 
   return (
@@ -124,12 +131,13 @@ const Home = () => {
                   type="text"
                   placeholder="Write your destination here"
                   onChange={(e) => setDestination(e.target.value)}
+                  id="dest"
                 />
               </div>
 
               <div>
                 <label>Property type</label>
-                <Select onChange={(e) => setType(e.target.value)}>
+                <Select id="ty" onChange={(e) => setType(e.target.value)}>
                   <option value={type}>Choose type here</option>
                   <option value="Hotel">Hotel</option>
                   <option value="Apartment">Apartment</option>

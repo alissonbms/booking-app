@@ -7,8 +7,9 @@ const TransactionModel = model(
     customerEmail: { type: String, required: true },
     propertyPhoto: { type: String, required: true },
     propertyName: { type: String, required: true },
-    valuePayed: { type: String, required: true },
-    transactionDate: { type: String, required: true },
+    valuePayed: { type: Number, required: true },
+    transactionDay: { type: String, required: true },
+    transactionMonth: { type: String, required: true },
   })
 );
 

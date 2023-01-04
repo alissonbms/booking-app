@@ -16,17 +16,12 @@ import ListData from "./pages/listData/ListData";
 import Login from "./pages/login/Login";
 import New from "./pages/new/New";
 import Single from "./pages/single/Single";
+import { userColumns, propertyColumns, roomColumns } from "./datatableSource";
 
-//Utilities
-import { userInputs, productInputs } from "./formSource";
-import {
-  userColumns,
-  productColumns,
-  userRows,
-  productRows,
-} from "./datatableSource";
 import { DarkModeContext } from "./contexts/DarkModeContext";
 import { AuthContext } from "./contexts/AuthContext";
+import NewProperty from "./pages/newProperty/newProperty";
+import NewRoom from "./pages/newRoom/NewRoom";
 
 const App = () => {
   const { darkMode } = useContext(DarkModeContext);
@@ -44,6 +39,7 @@ const App = () => {
     <div className={darkMode ? "app dark" : "app"}>
       <Router>
         <Routes>
+          <Route path="login" element={<Login />} />
           <Route path="/">
             <Route
               index
@@ -53,18 +49,13 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="login" element={<Login />} />
 
-            <Route path="users">
+            <Route path="user">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <ListData
-                      dataColumns={userColumns}
-                      dataRows={userRows}
-                      title="Users"
-                    />
+                    <ListData title={"Users"} columns={userColumns} />
                   </ProtectedRoute>
                 }
               />
@@ -80,29 +71,17 @@ const App = () => {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <New title="Add new User" inputs={userInputs} />
+                    <New />
                   </ProtectedRoute>
                 }
               />
             </Route>
-            <Route path="products">
+            <Route path="property">
               <Route
                 index
                 element={
                   <ProtectedRoute>
-                    <ListData
-                      dataColumns={productColumns}
-                      dataRows={productRows}
-                      title="Products"
-                    />
-                  </ProtectedRoute>
-                }
-              />
-              <Route
-                path=":productid"
-                element={
-                  <ProtectedRoute>
-                    <Single />
+                    <ListData title={"Properties"} columns={propertyColumns} />
                   </ProtectedRoute>
                 }
               />
@@ -110,7 +89,26 @@ const App = () => {
                 path="new"
                 element={
                   <ProtectedRoute>
-                    <New title="Add new Product" inputs={productInputs} />
+                    <NewProperty />
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
+
+            <Route path="room">
+              <Route
+                index
+                element={
+                  <ProtectedRoute>
+                    <ListData title={"Rooms"} columns={roomColumns} />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="new"
+                element={
+                  <ProtectedRoute>
+                    <NewRoom />
                   </ProtectedRoute>
                 }
               />

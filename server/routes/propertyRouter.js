@@ -7,6 +7,7 @@ import {
   getProperties,
   getPropertyById,
   getPropertyRooms,
+  getPropertyByRoomID,
   updateProperty,
 } from "../controllers/propertyController.js";
 
@@ -17,7 +18,9 @@ const router = Router();
 router.get("/", getProperties);
 router.get("/find/:id", getPropertyById);
 router.get("/rooms/:id", getPropertyRooms);
+router.get("/findByRoom", getPropertyByRoomID);
 
+getPropertyByRoomID;
 router.get("/countByCountry", countByCountry);
 router.get("/countByType", countByType);
 

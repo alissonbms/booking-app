@@ -11,7 +11,7 @@ import Datatable from "../../components/datatable/Datatable";
 //Utilities
 import { SidebarContext } from "../../contexts/SidebarContext";
 
-const ListData = ({ dataRows, dataColumns, title }) => {
+const ListData = ({ columns, title }) => {
   const { openSidebar } = useContext(SidebarContext);
 
   return (
@@ -19,11 +19,7 @@ const ListData = ({ dataRows, dataColumns, title }) => {
       {openSidebar ? <Sidebar /> : <></>}
       <div className="listContainer">
         <Navbar />
-        <Datatable
-          dataRows={dataRows}
-          dataColumns={dataColumns}
-          title={title}
-        />
+        <Datatable columns={columns} title={title} />
       </div>
     </div>
   );

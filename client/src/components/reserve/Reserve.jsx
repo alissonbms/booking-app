@@ -50,9 +50,6 @@ const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
   };
 
   const getDatesInRange = (startDate, endDate) => {
-    // const start = new Date(startDate);
-    // const end = new Date(endDate);
-
     const start = new Date(startDate.setHours(0, 0, 0, 0));
     const end = new Date(endDate.setHours(0, 0, 0, 0));
 
@@ -172,7 +169,6 @@ const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
                                   item.price
                                 )
                               }
-                              //onClick={() => isAvailable(roomNumber)}
                               disabled={isAvailable(roomNumber)}
                             />
                           </div>

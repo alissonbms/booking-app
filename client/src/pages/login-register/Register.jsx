@@ -77,6 +77,30 @@ const Register = () => {
                 id="password"
                 onChange={handleChange}
               />
+              <Input
+                type="text"
+                placeholder="City"
+                id="city"
+                onChange={handleChange}
+              />
+              <Input
+                type="text"
+                placeholder="Country"
+                id="country"
+                onChange={handleChange}
+              />
+              <Input
+                type="text"
+                placeholder="Phone"
+                id="phone"
+                onChange={handleChange}
+              />
+              <Input
+                type="text"
+                placeholder="Paste the photo url"
+                id="photo"
+                onChange={handleChange}
+              />
               <Button disabled={isAuthenticating} onClick={handleClick}>
                 Register
               </Button>

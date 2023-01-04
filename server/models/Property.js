@@ -8,6 +8,7 @@ const PropertyModel = model(
       type: String,
       enum: ["Hotel", "Cabin", "Apartment"],
       required: true,
+      default: "Hotel",
     }, // hotel, cabin or apartment
     headline: { type: String, required: true }, // Great apartment with air conditioning
     country: { type: String, required: true },

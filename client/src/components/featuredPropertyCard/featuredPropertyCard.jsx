@@ -30,7 +30,14 @@ const FeaturedPropertyCard = () => {
           {data?.map((property) => (
             <FeaturedCard
               key={property._id}
-              onClick={() => navigate(`/property/${property._id}`)}
+              onClick={() =>
+                navigate(`/property/${property._id}`, {
+                  state: {
+                    propertyName: property.name,
+                    propertyPhoto: property.photos[0],
+                  },
+                })
+              }
             >
               <img src={property.photos[0]} />
               <FpName>{property.name}</FpName>

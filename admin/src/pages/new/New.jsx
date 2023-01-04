@@ -1,19 +1,78 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
+import { useAlert } from "react-alert";
 
 //Styles
 import "./new.scss";
-
+import { userInputs } from "../../formSource";
 //Components
 import Sidebar from "../../components/sidebar/Sidebar";
 import Navbar from "../../components/navbar/Navbar";
 
 //Utilities
 import { SidebarContext } from "../../contexts/SidebarContext";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { UpdateContext } from "../../contexts/UpdateContext";
 
-const New = ({ title, inputs }) => {
+const New = () => {
+  const { updateData, isUpdating } = useContext(UpdateContext);
+  const alert = useAlert();
+  const navigate = useNavigate();
   const { openSidebar } = useContext(SidebarContext);
   const [file, setFile] = useState("");
+  const [info, setInfo] = useState({});
+  const [photoUrl, setPhotoUrl] = useState("");
+
+  const handleChange = (e) => {
+    setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+
+    try {
+      if (file !== "") {
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", "upload");
+
+        const uploadRes = await axios.post(
+          `https://api.cloudinary.com/v1_1/${
+            import.meta.env.VITE_CLOUD_KEY
+          }/image/upload`,
+          data
+        );
+
+        const { url } = uploadRes.data;
+
+        if (isUpdating) {
+          await axios
+            .patch(`/api/user/${updateData.data._id}`, { ...info, photo: url })
+            .then(alert.success("User updated successfully!"));
+        } else {
+          await axios
+            .post(`/api/auth/register`, { ...info, photo: url })
+            .then(alert.success("User created successfully!"));
+        }
+      } else {
+        if (isUpdating) {
+          await axios
+            .patch(`/api/user/${updateData.data._id}`, { ...info })
+            .then(alert.success("User updated successfully!"));
+        } else {
+          await axios
+            .post(`/api/auth/register`, { ...info })
+
+            .then(alert.success("User created successfully!"));
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      navigate("/user");
+    }
+  };
 
   return (
     <div className="new">
@@ -21,7 +80,7 @@ const New = ({ title, inputs }) => {
       <div className="newContainer">
         <Navbar />
         <div className="top">
-          <h1>{title}</h1>
+          <h1>{isUpdating ? "Edit User" : "Add new User"}</h1>
         </div>
         <div className="bottom">
           <div className="left">
@@ -47,15 +106,38 @@ const New = ({ title, inputs }) => {
                   onChange={(e) => setFile(e.target.files[0])}
                 />
               </div>
-              {inputs.map((input) => {
+              {userInputs.map((input) => {
                 return (
                   <div className="formInput" key={input.id}>
                     <label>{input.label}</label>
-                    <input type={input.type} placeholder={input.placeholder} />
+
+                    <input
+                      onChange={handleChange}
+                      type={input.type}
+                      placeholder={
+                        isUpdating
+                          ? updateData.data[input.id]
+                          : input.placeholder
+                      }
+                      id={input.id}
+                    />
                   </div>
                 );
               })}
-              <div className="formInput formButton">
+              <div className="formInput">
+                <label>Password</label>
+                <input onChange={handleChange} type="password" id="password" />
+              </div>
+              {isUpdating && (
+                <div className="formInput">
+                  <label>is Admin?</label>
+                  <select id="isAdmin" onChange={handleChange}>
+                    <option value={false}>No</option>
+                    <option value={true}>Yes</option>
+                  </select>
+                </div>
+              )}
+              <div onClick={handleClick} className="formInput formButton">
                 <button>Send</button>
               </div>
             </form>

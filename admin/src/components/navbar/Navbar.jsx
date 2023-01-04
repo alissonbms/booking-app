@@ -13,8 +13,11 @@ import "./navbar.scss";
 import { SidebarContext } from "../../contexts/SidebarContext";
 import { DarkModeContext } from "../../contexts/DarkModeContext";
 import { AuthContext } from "../../contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
   const { setOpenSidebar, openSidebar } = useContext(SidebarContext);
   const { dispatch, darkMode } = useContext(DarkModeContext);
   const { user, authDispatch } = useContext(AuthContext);
@@ -32,6 +35,9 @@ const Navbar = () => {
   const handleLogout = () => {
     authDispatch({ type: "LOGOUT" });
   };
+
+  // const userStorage = JSON.parse(localStorage.getItem("user"));
+  // const id = userStorage._id;
 
   return (
     <div className="navbar">
@@ -59,6 +65,7 @@ const Navbar = () => {
               <DarkModeOutlinedIcon className="icon" onClick={handleDarkMode} />
             )}
           </div>
+          {/* onClick={() => navigate(`/user/${id}`)} */}
           <div className="item">
             <img src={user.photo} alt="" className="avatar" />
           </div>

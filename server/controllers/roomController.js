@@ -8,6 +8,7 @@ import {
   idIsRequiredError,
   missingEntityRegistersError,
   notFoundOrInvalidDataError,
+  allFieldsAreRequiredError,
 } from "../utils/customErrors.js";
 
 export const getRooms = async (req, res, next) => {

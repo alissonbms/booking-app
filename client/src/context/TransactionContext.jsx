@@ -32,23 +32,6 @@ const TransactionReducer = (state, action) => {
 export const TransactionContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(TransactionReducer, INITIAL_STATE);
 
-  // useEffect(() => {
-  //   localStorage.setItem("customer", JSON.stringify(state.customer));
-  //   localStorage.setItem("propertyPhoto", JSON.stringify(state.propertyPhoto));
-
-  //   localStorage.setItem("valuePayed", JSON.stringify(state.valuePayed));
-  //   localStorage.setItem(
-  //     "transactionDate",
-  //     JSON.stringify(state.transactionDate)
-  //   );
-  // }, [
-  //   state.customer,
-  //   state.propertyPhoto,
-  //   state.propertyName,
-  //   state.valuePayed,
-  //   state.transactionDate,
-  // ]);
-
   return (
     <TransactionContext.Provider
       value={{

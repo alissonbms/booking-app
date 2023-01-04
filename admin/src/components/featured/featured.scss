@@ -28,6 +28,22 @@
     gap: 45px;
     justify-content: space-between;
 
+    .amounts {
+      display: flex;
+      gap: 50px;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      @media only screen and (max-width: 660px) {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
     .featuredChart {
       height: 140px;
       width: 140px;

@@ -15,14 +15,13 @@ import useFetch from "../../hooks/useFetch";
 //Styles
 import "./chart.scss";
 
-const Chart = ({ aspect, title, email }) => {
-  const [thisM, setThisM] = useState("");
-  const [lastM, setLastM] = useState("");
-  const [lastLastM, setLastLastM] = useState("");
+const Chart = ({ aspect, title }) => {
+  const [chartData, setChartData] = useState([]);
+  const [thisM = setThisM] = useState("");
+  const [lastM = setLastM] = useState("");
+  const [lastLastM = setLastLastM] = useState("");
 
-  const { data, isFetching } = useFetch(
-    `/api/transaction${email ? `?customerEmail=${email}` : ``}`
-  );
+  const { data, isFetching } = useFetch(`/api/transaction`);
 
   useEffect(() => {
     const getLastMonths = (n) => {
@@ -56,13 +55,16 @@ const Chart = ({ aspect, title, email }) => {
         i++;
       } while (i < n);
 
-      setThisM(months[0].toString());
-      setLastM(months[1].toString());
-      setLastLastM(months[2].toString());
+      return months;
     };
 
     getLastMonths(3);
+    setThisM(months[0].toString());
+    setLastM(months[1].toString());
+    setLastLastM(months[2].toString());
   }, []);
+
+  console.log(thisM);
 
   const thisMonth = data.filter(
     (transaction) => transaction.transactionMonth.toString() === thisM
@@ -91,16 +93,16 @@ const Chart = ({ aspect, title, email }) => {
   },
   0);
 
-  const chartData = [
+  setChartData(
     { name: lastLastM, Total: lastLastMonthValue },
     { name: lastM, Total: lastMonthValue },
-    { name: thisM, Total: thisMonthValue },
-  ];
+    { name: thisM, Total: thisMonthValue }
+  );
 
   return (
     <div className="chart">
       <div className="chartTitle">
-        <h2>{title}</h2>
+        <h2>aaa</h2>
       </div>
       <ResponsiveContainer width="100%" aspect={aspect}>
         <AreaChart

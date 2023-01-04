@@ -27,6 +27,18 @@ export const getProperties = async (req, res, next) => {
   }
 };
 
+export const getPropertyByRoomID = async (req, res, next) => {
+  const { id } = req.query;
+
+  try {
+    const property = await PropertyModel.find({ rooms: id });
+
+    res.status(200).json(property);
+  } catch (error) {
+    next(error);
+  }
+};
+
 export const getPropertyById = async (req, res, next) => {
   const id = req.params.id;
 
@@ -65,7 +77,6 @@ export const createProperty = async (req, res, next) => {
 
   if (
     !name ||
-    !type ||
     !headline ||
     !country ||
     !city ||
@@ -75,10 +86,6 @@ export const createProperty = async (req, res, next) => {
     !supportedGuests
   ) {
     return next(allFieldsAreRequiredError());
-  } else if (type !== "Hotel" && type !== "Cabin" && type !== "Apartment") {
-    return next(
-      createError(400, "Property type can be only Hotel or Cabin or Apartment")
-    );
   }
 
   try {
@@ -139,7 +146,16 @@ export const deleteProperty = async (req, res, next) => {
   }
 
   try {
-    const property = await PropertyModel.findByIdAndDelete(id);
+    const property = await PropertyModel.findById(id);
+    const rooms = property.rooms;
+
+    await Promise.all(
+      rooms.map((room) => {
+        return RoomModel.findByIdAndDelete(room);
+      })
+    );
+
+    await PropertyModel.findByIdAndDelete(id);
 
     if (!property) {
       return next(notFoundOrInvalidDataError("property"));

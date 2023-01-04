@@ -5,16 +5,17 @@ import {
 } from "../utils/customErrors.js";
 
 export const getTransactions = async (req, res, next) => {
-  const { customerName, ...others } = req.query;
-  const transactions = await TransactionModel.find({});
+  const { ...others } = req.query;
+  const transactions = await TransactionModel.find({
+    ...others,
+  }).limit(req.query.limit);
+
   if (!transactions.length) {
     return res.status(404).json({ message: "No transactions found" });
   }
+
   res.status(200).json(transactions);
   // try {
-  //   const transactions = await TransactionModel.find({
-  //     ...others,
-  //   }).limit(req.query.limit);
 
   //   res.status(200).json(transactions);
   // } catch (error) {
@@ -43,7 +44,8 @@ export const createTransaction = async (req, res, next) => {
       propertyName,
       propertyPhoto,
       valuePayed,
-      transactionDate: `${new Date().getMonth() + 1} / ${new Date().getDate()}`,
+      transactionDay: new Date().getDate(),
+      transactionMonth: new Date().toLocaleString("en-US", { month: "long" }),
     });
 
     if (!transaction) {
