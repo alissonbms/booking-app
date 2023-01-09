@@ -51,13 +51,18 @@ app.use("/api/transaction", transactionRouter);
 
 app.use(errorHandler);
 
-app.all("*", (req, res) => {
-  res.status(404);
-  if (req.accepts("html")) {
-    res.sendFile(path.join(__dirname, "../client", "/", "404.html"));
-  } else if (req.accepts("json")) {
-    return res.json({ message: "404 Not Found" });
-  } else {
-    return res.type("txt").send("404 Not Found");
-  }
-});
+app.use(express.static(path.join(__dirname, "../client/build")));
+app.get("*", (req, res) =>
+  res.sendFile(path.join(__dirname, "../client", "/build", "/index.html"))
+);
+
+// app.all("*", (req, res) => {
+//   res.status(404);
+//   if (req.accepts("html")) {
+//     res.sendFile(path.join(__dirname, "../client", "/", "404.html"));
+//   } else if (req.accepts("json")) {
+//     return res.json({ message: "404 Not Found" });
+//   } else {
+//     return res.type("txt").send("404 Not Found");
+//   }
+// });
