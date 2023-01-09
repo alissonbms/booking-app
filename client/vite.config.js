@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:3003",
+        target: "https://booking-app-api-sigma.vercel.app",
         changeOrigin: true,
         secure: false,
       },
