@@ -51,10 +51,10 @@ app.use("/api/transaction", transactionRouter);
 
 app.use(errorHandler);
 
-app.use(express.static(path.join(__dirname, "../client/build")));
-app.get("*", (req, res) =>
-  res.sendFile(path.join(__dirname, "../client", "/build", "/index.html"))
-);
+// app.use(express.static(path.join(__dirname, "../client/build")));
+// app.get("*", (req, res) =>
+//   res.sendFile(path.join(__dirname, "../client", "/build", "/index.html"))
+// );
 
 // app.all("*", (req, res) => {
 //   res.status(404);
