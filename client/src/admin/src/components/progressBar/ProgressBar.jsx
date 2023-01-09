@@ -5,7 +5,9 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import useFetch from "../../hooks/useFetch";
 
 const ProgressBar = () => {
-  const { data, isFetching } = useFetch(`/api/room`);
+  const { data, isFetching } = useFetch(
+    `https://booking-app-api-sigma.vercel.app/api/room`
+  );
 
   const rooms = [];
 

@@ -65,20 +65,26 @@ const PaymentConfirmation = () => {
     try {
       await Promise.all(
         selectedRoomsContext.map((room) => {
-          const res = axios.patch(`/api/room/availability/${room}`, {
-            dates: allDatesContext,
-          });
+          const res = axios.patch(
+            `https://booking-app-api-sigma.vercel.app/api/room/availability/${room}`,
+            {
+              dates: allDatesContext,
+            }
+          );
           return res.data;
         })
       );
 
-      await axios.post("/api/transaction", {
-        customer: user.username,
-        customerEmail: user.email,
-        propertyPhoto,
-        propertyName,
-        valuePayed,
-      });
+      await axios.post(
+        "https://booking-app-api-sigma.vercel.app/api/transaction",
+        {
+          customer: user.username,
+          customerEmail: user.email,
+          propertyPhoto,
+          propertyName,
+          valuePayed,
+        }
+      );
 
       dispatch({ type: "RESET_RESERVE" });
     } catch (error) {

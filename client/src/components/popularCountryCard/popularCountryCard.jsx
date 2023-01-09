@@ -12,7 +12,7 @@ import useFetch from "../../hooks/useFetch";
 
 const PopularCountryCard = () => {
   const { data, isFetching } = useFetch(
-    "/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
+    "https://booking-app-api-sigma.vercel.app/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
   );
   return (
     <>

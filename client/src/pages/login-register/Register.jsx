@@ -37,7 +37,10 @@ const Register = () => {
 
     authDispatch({ type: "AUTHENTICATION_START" });
     try {
-      const response = await axios.post("/api/auth/register", credentials);
+      const response = await axios.post(
+        "https://booking-app-api-sigma.vercel.app/api/auth/register",
+        credentials
+      );
       authDispatch({
         type: "AUTHENTICATION_SUCCESS",
         payload: response.data,

@@ -7,7 +7,9 @@ import { PropertyCard, LoaderContainer } from "./propertyTypesCard.styles";
 import useFetch from "../../hooks/useFetch";
 
 const PropertyTypesCard = () => {
-  const { isFetching, data } = useFetch("/api/property/countByType");
+  const { isFetching, data } = useFetch(
+    "https://booking-app-api-sigma.vercel.app/api/property/countByType"
+  );
   return (
     <>
       {isFetching ? (

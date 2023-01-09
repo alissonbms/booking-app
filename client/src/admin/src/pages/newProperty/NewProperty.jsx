@@ -26,7 +26,9 @@ const NewProperty = () => {
   const [files, setFiles] = useState("");
   const [info, setInfo] = useState({});
 
-  const { data, isFetching } = useFetch("/api/room");
+  const { data, isFetching } = useFetch(
+    "https://booking-app-api-sigma.vercel.app/api/room"
+  );
 
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -60,11 +62,17 @@ const NewProperty = () => {
       };
       if (isUpdating) {
         await axios
-          .patch(`/api/property/${updateData.data._id}`, newProperty)
+          .patch(
+            `https://booking-app-api-sigma.vercel.app/api/property/${updateData.data._id}`,
+            newProperty
+          )
           .then(alert.success("Property updated successfully!"));
       } else {
         await axios
-          .post("/api/property", newProperty)
+          .post(
+            "https://booking-app-api-sigma.vercel.app/api/property",
+            newProperty
+          )
           .then(alert.success("Property created successfully!"));
       }
     } catch (error) {

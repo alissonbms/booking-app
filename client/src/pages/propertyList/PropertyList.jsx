@@ -83,7 +83,7 @@ const Properties = () => {
   };
 
   const { data, isFetching, reFetch } = useFetch(
-    `/api/property?city=${destination}&type=${type}&min=${min}&max=${max}&guests=${guests}`
+    `https://booking-app-api-sigma.vercel.app/api/property?city=${destination}&type=${type}&min=${min}&max=${max}&guests=${guests}`
   );
   return (
     <>

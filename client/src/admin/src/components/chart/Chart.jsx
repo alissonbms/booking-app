@@ -23,7 +23,9 @@ const Chart = ({ aspect, title, email }) => {
   const [lastLastM, setLastLastM] = useState("");
 
   const { data, isFetching } = useFetch(
-    `/api/transaction${email ? `?customerEmail=${email}` : ``}`
+    `https://booking-app-api-sigma.vercel.app/api/transaction${
+      email ? `?customerEmail=${email}` : ``
+    }`
   );
 
   useEffect(() => {

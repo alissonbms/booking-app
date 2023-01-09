@@ -13,7 +13,9 @@ import useFetch from "../../hooks/useFetch";
 
 const Featured = () => {
   const [today, setToday] = useState();
-  const { data, isFetching } = useFetch(`/api/transaction`);
+  const { data, isFetching } = useFetch(
+    `https://booking-app-api-sigma.vercel.app/api/transaction`
+  );
 
   useEffect(() => {
     const madeToday = async () => {

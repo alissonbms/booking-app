@@ -28,7 +28,10 @@ const LoginAdmin = () => {
 
     authDispatch({ type: "AUTHENTICATION_START" });
     try {
-      const response = await axios.post("/api/auth/Login", credentials);
+      const response = await axios.post(
+        "https://booking-app-api-sigma.vercel.app/api/auth/Login",
+        credentials
+      );
 
       if (response.data.isAdmin) {
         authDispatch({

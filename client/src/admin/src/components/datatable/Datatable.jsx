@@ -18,7 +18,9 @@ const Datatable = ({ title, columns }) => {
   const { updateDispatch, isLoading } = useContext(UpdateContext);
   const path = location.pathname.split("/")[2];
   const [list, setList] = useState([]);
-  const { data, isFetching, reFetch } = useFetch(`/api/${path}`);
+  const { data, isFetching, reFetch } = useFetch(
+    `https://booking-app-api-sigma.vercel.app/api/${path}`
+  );
 
   useEffect(() => {
     reFetch(`/api/${location.pathname.split("/")[2]}`);
@@ -31,7 +33,7 @@ const Datatable = ({ title, columns }) => {
   const handleDelete = async (id) => {
     try {
       await axios
-        .delete(`/api/${path}/${id}`)
+        .delete(`https://booking-app-api-sigma.vercel.app/api/${path}/${id}`)
         .then(alert.success(`${path} deleted successfully!`));
       setList(list.filter((item) => item._id !== id));
     } catch (error) {
@@ -41,12 +43,16 @@ const Datatable = ({ title, columns }) => {
 
   const handleDeleteRoom = async (id) => {
     const response = await axios
-      .get(`/api/property/findByRoom?id=${id}`)
+      .get(
+        `https://booking-app-api-sigma.vercel.app/api/property/findByRoom?id=${id}`
+      )
       .then(alert.success("Room deleted successfully!"));
     const property = response.data[0];
 
     try {
-      await axios.delete(`/api/${path}/${property._id}/${id}`);
+      await axios.delete(
+        `https://booking-app-api-sigma.vercel.app/api/${path}/${property._id}/${id}`
+      );
       setList(list.filter((item) => item._id !== id));
     } catch (error) {
       console.log(error);
@@ -61,7 +67,9 @@ const Datatable = ({ title, columns }) => {
   const handleUpdate = async (id) => {
     try {
       const response = await axios.get(
-        path === "property" ? `/api/property/find/${id}` : `/api/room/${id}`
+        path === "property"
+          ? `https://booking-app-api-sigma.vercel.app/api/property/find/${id}`
+          : `https://booking-app-api-sigma.vercel.app/api/room/${id}`
       );
       const data = response.data;
       updateDispatch({ type: "UPDATE", payload: { data } });

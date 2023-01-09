@@ -55,7 +55,9 @@ const Property = () => {
   const id = location.pathname.split("/")[2];
   const propertyName = location.state.propertyName;
   const propertyPhoto = location.state.propertyPhoto;
-  const { data, isFetching } = useFetch(`/api/property/find/${id}`);
+  const { data, isFetching } = useFetch(
+    `https://booking-app-api-sigma.vercel.app/api/property/find/${id}`
+  );
 
   const handleReserve = () => {
     if (user) {

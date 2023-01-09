@@ -22,7 +22,9 @@ const Single = () => {
 
   const location = useLocation();
   const id = location.pathname.split("/")[3];
-  const { data, isFetching } = useFetch(`/api/user/${id}`);
+  const { data, isFetching } = useFetch(
+    `https://booking-app-api-sigma.vercel.app/api/user/${id}`
+  );
 
   const handleEdit = () => {
     updateDispatch({ type: "UPDATE", payload: { data } });

@@ -48,7 +48,10 @@ const New = () => {
 
         if (isUpdating) {
           await axios
-            .patch(`/api/user/${updateData.data._id}`, { ...info, photo: url })
+            .patch(
+              `https://booking-app-api-sigma.vercel.app/api/user/${updateData.data._id}`,
+              { ...info, photo: url }
+            )
             .catch((error) => {
               error
                 ? alert.error(error.response.data.message)
@@ -56,13 +59,19 @@ const New = () => {
             });
         } else {
           await axios
-            .post(`/api/auth/register`, { ...info, photo: url })
+            .post(
+              `https://booking-app-api-sigma.vercel.app/api/auth/register`,
+              { ...info, photo: url }
+            )
             .then(alert.success("User created successfully!"));
         }
       } else {
         if (isUpdating) {
           await axios
-            .patch(`/api/user/${updateData.data._id}`, { ...info })
+            .patch(
+              `https://booking-app-api-sigma.vercel.app/api/user/${updateData.data._id}`,
+              { ...info }
+            )
             .catch((error) => {
               error
                 ? alert.error(error.response.data.message)
@@ -70,7 +79,10 @@ const New = () => {
             });
         } else {
           await axios
-            .post(`/api/auth/register`, { ...info })
+            .post(
+              `https://booking-app-api-sigma.vercel.app/api/auth/register`,
+              { ...info }
+            )
 
             .then(alert.success("User created successfully!"));
         }

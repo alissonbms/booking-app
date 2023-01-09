@@ -18,7 +18,9 @@ import useFetch from "../../hooks/useFetch";
 const FeaturedPropertyCard = () => {
   const navigate = useNavigate();
 
-  const { data, isFetching } = useFetch("/api/property?featured=true&limit=5");
+  const { data, isFetching } = useFetch(
+    "https://booking-app-api-sigma.vercel.app/api/property?featured=true&limit=5"
+  );
 
   return (
     <>
