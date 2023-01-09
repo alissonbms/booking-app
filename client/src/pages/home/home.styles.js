@@ -225,11 +225,23 @@ export const SearchButton = styled.button`
 
 /*-- Popular Countries --*/
 
-export const Subtitle = styled.h2`
+export const Subtitle = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   margin: 50px 0px 14px;
-  font-size: 35px;
-  font-weight: 500;
-  color: #333;
+  flex-wrap: wrap;
+
+  h2 {
+    font-size: 35px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  span {
+    margin-top: 8px;
+    color: gray;
+  }
 `;
 
 export const Exclusives = styled.div`

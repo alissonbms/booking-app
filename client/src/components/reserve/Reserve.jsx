@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { IoMdCloseCircle } from "react-icons/io";
-import { SearchContext } from "../../context/SearchContext";
-import useFetch from "../../hooks/useFetch";
+import { ClockLoader } from "react-spinners";
+
+//Styles
 import {
   ReserveContainer,
   ReserveWrapper,
@@ -16,20 +17,20 @@ import {
   SelectRooms,
   PleaseWait,
 } from "./reserve.styles";
+
+//Components
 import Loading from "../loading/Loading";
-import { ClockLoader } from "react-spinners";
-import { useNavigate } from "react-router-dom";
-import { ReserveContext } from "../../context/ReserveContext";
+
+//Utilities
+import { SearchContext } from "../../contexts/SearchContext";
+import useFetch from "../../hooks/useFetch";
+import { ReserveContext } from "../../contexts/ReserveContext";
 
 const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
-  const navigate = useNavigate();
   const [selectedRooms, setSelectedRooms] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
-  const buyRooms = [
-    { name: "Rooms", price: totalPrice, quantity: selectedRooms.length },
-  ];
 
   const { datesContext } = useContext(SearchContext);
   const { dispatch, selectedRoomsContext, allDatesContext } =
@@ -78,6 +79,10 @@ const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
     return isFound;
   };
 
+  const buyRooms = [
+    { name: "Rooms", price: totalPrice, quantity: allDates.length },
+  ];
+
   const handleClick = async () => {
     if (!selectedRooms.length) {
       return setHasError(true);
@@ -114,10 +119,6 @@ const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    console.log(datesContext);
-  }, []);
 
   return (
     <>

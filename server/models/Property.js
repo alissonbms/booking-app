@@ -3,19 +3,19 @@ import { model, Schema } from "mongoose";
 const PropertyModel = model(
   "Property",
   new Schema({
-    name: { type: String, required: true }, // Tower Apartment
+    name: { type: String, required: true },
     type: {
       type: String,
       enum: ["Hotel", "Cabin", "Apartment"],
       required: true,
       default: "Hotel",
-    }, // hotel, cabin or apartment
-    headline: { type: String, required: true }, // Great apartment with air conditioning
+    },
+    headline: { type: String, required: true },
     country: { type: String, required: true },
     city: { type: String, required: true },
     address: { type: String, required: true },
-    distance: { type: String, required: true }, // 300m from center
-    photos: { type: [String] }, // 5 required: true
+    distance: { type: String, required: true },
+    photos: { type: [String] },
     rating: { type: Number, min: 0, max: 10 },
     rooms: { type: [Schema.Types.ObjectId], ref: "Room", default: [] },
     cheapestPrice: { type: Number, required: true },

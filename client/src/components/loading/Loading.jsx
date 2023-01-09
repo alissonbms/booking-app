@@ -1,4 +1,6 @@
 import { BarLoader } from "react-spinners";
+
+//Styles
 import { Container } from "./loading.styles";
 
 const Loading = ({ message }) => {

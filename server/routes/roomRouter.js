@@ -1,4 +1,6 @@
 import { Router } from "express";
+
+//Utilities
 import {
   getRooms,
   getRoomById,
@@ -7,7 +9,6 @@ import {
   updateAvailabilityRoom,
   deleteRoom,
 } from "../controllers/roomController.js";
-
 import { verifyAdmin } from "../utils/verifyToken.js";
 
 const router = Router();

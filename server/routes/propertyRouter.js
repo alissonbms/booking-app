@@ -1,4 +1,6 @@
 import { Router } from "express";
+
+//Utilities
 import {
   countByCountry,
   countByType,
@@ -10,7 +12,6 @@ import {
   getPropertyByRoomID,
   updateProperty,
 } from "../controllers/propertyController.js";
-
 import { verifyAdmin } from "../utils/verifyToken.js";
 
 const router = Router();

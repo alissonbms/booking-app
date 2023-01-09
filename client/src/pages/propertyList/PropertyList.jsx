@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
+import { SyncLoader } from "react-spinners";
 
 //Styles
 import "react-date-range/dist/styles.css";
@@ -23,10 +24,11 @@ import {
 import FooterComponent from "../../components/footer/FooterComponent";
 import NavComponent from "../../components/nav/NavComponent";
 import SearchItem from "../../components/searchItem/SearchItem";
-import useFetch from "../../hooks/useFetch";
-import { SearchContext } from "../../context/SearchContext.jsx";
 import Loading from "../../components/loading/Loading";
-import { SyncLoader } from "react-spinners";
+
+//Utilities
+import useFetch from "../../hooks/useFetch";
+import { SearchContext } from "../../contexts/SearchContext.jsx";
 
 const Properties = () => {
   const {

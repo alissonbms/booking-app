@@ -12,9 +12,6 @@ export const Advices = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* p {
-    cursor: pointer;
-  } */
 
   p {
     cursor: pointer;
@@ -85,8 +82,6 @@ export const Input = styled.input`
     width: 55vw;
     font-size: 18px;
   }
-
-  //  @media screen and (min-width: 820px) and (max-width: 1156px) {
 `;
 
 export const Button = styled.button`

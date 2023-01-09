@@ -1,3 +1,4 @@
+//Utilities
 import TransactionModel from "../models/Transaction.js";
 import {
   allFieldsAreRequiredError,
@@ -15,12 +16,6 @@ export const getTransactions = async (req, res, next) => {
   }
 
   res.status(200).json(transactions);
-  // try {
-
-  //   res.status(200).json(transactions);
-  // } catch (error) {
-  //   next(error);
-  // }
 };
 
 export const createTransaction = async (req, res, next) => {

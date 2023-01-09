@@ -1,23 +1,26 @@
-import logo12 from "../../assets/logo12.png";
-import logo13 from "../../assets/logo13.png";
 import { useNavigate } from "react-router-dom";
-
 import { VscChromeClose } from "react-icons/vsc";
 import { BsChevronDoubleDown } from "react-icons/bs";
-
 import { useContext, useState } from "react";
 
+//Images
+import logo12 from "../../assets/logo12.png";
+import logo13 from "../../assets/logo13.png";
+
+//Styles
 import "./nav.styles.js";
 import { AccountBtn, Logo, Nav, NavLinks } from "./nav.styles.js";
-import { AuthContext } from "../../context/AuthContext";
+
+//Utilities
+import { AuthContext } from "../../contexts/AuthContext";
 
 const NavComponent = ({ homeNav }) => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
-  const { user, dispatch } = useContext(AuthContext);
+  const { user, authDispatch } = useContext(AuthContext);
 
   const handleLogout = () => {
-    dispatch({ type: "LOGOUT" });
+    authDispatch({ type: "LOGOUT" });
     navigate("/");
   };
 

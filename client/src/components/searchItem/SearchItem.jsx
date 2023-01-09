@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import "./searchItem.styles.js";
 
+//Styles
+import "./searchItem.styles.js";
 import {
   Si,
   SiCheckButton,

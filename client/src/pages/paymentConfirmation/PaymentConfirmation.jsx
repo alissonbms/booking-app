@@ -1,13 +1,19 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { Container, Content, Payment } from "./paymentConfirmation.styles";
 import { BsCheck2Circle } from "react-icons/bs";
 import { TfiFaceSad } from "react-icons/tfi";
-import Loading from "../../components/loading/Loading";
 import axios from "axios";
 import { useContext } from "react";
-import { ReserveContext } from "../../context/ReserveContext";
-import { TransactionContext } from "../../context/TransactionContext";
-import { AuthContext } from "../../context/AuthContext";
+
+//Styles
+import { Container, Content, Payment } from "./paymentConfirmation.styles";
+
+//Utilities
+import { ReserveContext } from "../../contexts/ReserveContext";
+import { TransactionContext } from "../../contexts/TransactionContext";
+import { AuthContext } from "../../contexts/AuthContext";
+
+//Components
+import Loading from "../../components/loading/Loading";
 
 const PaymentConfirmation = () => {
   const navigate = useNavigate();
@@ -29,13 +35,20 @@ const PaymentConfirmation = () => {
   };
 
   const handleInitialPageFailure = () => {
+    let keysToRemove = ["propertyPhoto", "propertyName", "valuePayed"];
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+
     dispatch({ type: "RESET_RESERVE" });
 
     navigate("/");
   };
 
   if (canceled === "true") {
+    let keysToRemove = ["propertyPhoto", "propertyName", "valuePayed"];
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+
     dispatch({ type: "RESET_RESERVE" });
+
     setTimeout(() => {
       handleInitialPage();
     }, 3000);

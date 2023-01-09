@@ -1,6 +1,8 @@
 import { MdLocationOn } from "react-icons/md";
 import { useNavigate, useLocation } from "react-router-dom";
-import Reserve from "../../components/reserve/Reserve";
+import { useState, useEffect, useContext } from "react";
+import { add } from "date-fns/esm";
+
 //Styles
 import {
   PropertyAddress,
@@ -15,13 +17,13 @@ import {
 
 //Components
 import NavComponent from "../../components/nav/NavComponent";
-import useFetch from "../../hooks/useFetch";
-import { useContext } from "react";
-import { SearchContext } from "../../context/SearchContext";
+import Reserve from "../../components/reserve/Reserve";
 import Loading from "../../components/loading/Loading.jsx";
-import { AuthContext } from "../../context/AuthContext";
-import { useState, useEffect } from "react";
-import { add } from "date-fns/esm";
+
+//Utilities
+import useFetch from "../../hooks/useFetch";
+import { SearchContext } from "../../contexts/SearchContext";
+import { AuthContext } from "../../contexts/AuthContext";
 
 const Property = () => {
   const { user } = useContext(AuthContext);

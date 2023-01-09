@@ -1,6 +1,7 @@
-body {
+.appteste {
   background-color: #f2eeef;
   min-height: 100vh;
+  font-family: "poppins", sans-serif;
 }
 
 html {
@@ -15,5 +16,4 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "poppins", sans-serif;
 }

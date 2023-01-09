@@ -1,7 +1,8 @@
 import { Types } from "mongoose";
+
+//Utilities
 import PropertyModel from "../models/Property.js";
 import RoomModel from "../models/Room.js";
-
 import {
   allFieldsAreRequiredError,
   couldNotCreateError,

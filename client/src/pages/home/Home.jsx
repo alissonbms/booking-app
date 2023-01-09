@@ -36,8 +36,10 @@ import NavComponent from "../../components/nav/NavComponent";
 import FeaturedPropertyCard from "../../components/featuredPropertyCard/featuredPropertyCard";
 import PropertyTypesCard from "../../components/propertyTypesCard/propertyTypesCard";
 import PopularCountryCard from "../../components/popularCountryCard/popularCountryCard";
-import { SearchContext } from "../../context/SearchContext";
-import { TransactionContext } from "../../context/TransactionContext";
+
+//Utilities
+import { SearchContext } from "../../contexts/SearchContext";
+import { TransactionContext } from "../../contexts/TransactionContext";
 
 const Home = () => {
   const [destination, setDestination] = useState();
@@ -86,10 +88,11 @@ const Home = () => {
   };
 
   const { dispatch } = useContext(SearchContext);
-  const { transactionDispatch } = useContext(TransactionContext);
 
   useEffect(() => {
-    //transactionDispatch({ type: "RESET_TRANSACTION" });
+    let keysToRemove = ["propertyPhoto", "propertyName", "valuePayed"];
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+
     dispatch({ type: "RESET_SEARCH" });
   }, []);
 
@@ -238,12 +241,17 @@ const Home = () => {
         </Hero>
       </Header>
       <Container>
-        <Subtitle id="popular-countries">Popular Countries</Subtitle>
+        <Subtitle id="popular-countries">
+          <h2>Popular Countries</h2>
+          <span>(for those who enjoy discovering new cultures)</span>
+        </Subtitle>
         <Exclusives>
           <PopularCountryCard />
         </Exclusives>
 
-        <Subtitle id="property-types">Property Types</Subtitle>
+        <Subtitle id="property-types">
+          <h2>Property Types</h2> <span>(your stay, your type)</span>
+        </Subtitle>
         <Properties>
           <PropertyTypesCard />
         </Properties>
@@ -258,7 +266,11 @@ const Home = () => {
       </CostBenefitSection>
 
       <Container>
-        <Subtitle id="featured-properties">Featured Properties</Subtitle>
+        <Subtitle id="featured-properties">
+          <h2>Featured Properties</h2>
+          <span>(perfect for a 1-night stay)</span>
+        </Subtitle>
+
         <FP>
           <FeaturedPropertyCard />
         </FP>

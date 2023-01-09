@@ -1,13 +1,20 @@
-import { Input, Container, Wrapper, Title, Button, Advices } from "./styles";
-import NavComponent from "../../components/nav/NavComponent";
 import { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
+//Styles
+import { Input, Container, Wrapper, Title, Button, Advices } from "./styles";
+
+//Components
+import NavComponent from "../../components/nav/NavComponent";
 import Loading from "../../components/loading/Loading";
 
+//Utilities
+import { AuthContext } from "../../contexts/AuthContext";
+
 const Login = () => {
-  const { dispatch, isAuthenticating, user, error } = useContext(AuthContext);
+  const { authDispatch, isAuthenticating, user, error } =
+    useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,17 +35,17 @@ const Login = () => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    dispatch({ type: "AUTHENTICATION_START" });
+    authDispatch({ type: "AUTHENTICATION_START" });
     try {
       const response = await axios.post("/api/auth/Login", credentials);
-      dispatch({
+      authDispatch({
         type: "AUTHENTICATION_SUCCESS",
         payload: response.data.details,
       });
       navigate("/");
     } catch (error) {
       console.log(error);
-      dispatch({
+      authDispatch({
         type: "AUTHENTICATION_FAILURE",
         payload: error.response.data,
       });
@@ -81,11 +88,7 @@ const Login = () => {
                 Login
               </Button>
               <Advices>
-                <p
-                  onClick={() =>
-                    (window.location.href = "http://127.0.0.1:3005/login")
-                  }
-                >
+                <p onClick={() => navigate("/admin/")}>
                   Want to see the dashboard?
                 </p>
               </Advices>

@@ -1,12 +1,12 @@
 import { Router } from "express";
 
+//Utilities
 import {
   getUsers,
   getUserById,
   updateUser,
   deleteUser,
 } from "../controllers/userController.js";
-
 import { verifyUser, verifyAdmin } from "../utils/verifyToken.js";
 
 const router = Router();

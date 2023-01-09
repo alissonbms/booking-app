@@ -1,10 +1,14 @@
-import useFetch from "../../hooks/useFetch";
+import { ClockLoader } from "react-spinners";
+
+//Styles
 import {
   CountryCard,
   Layer,
   LoaderContainer,
 } from "./popularCountryCard.styles";
-import { ClockLoader } from "react-spinners";
+
+//Utilities
+import useFetch from "../../hooks/useFetch";
 
 const PopularCountryCard = () => {
   const { data, isFetching } = useFetch(

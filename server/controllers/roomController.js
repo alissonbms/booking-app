@@ -1,7 +1,8 @@
 import { Types } from "mongoose";
+
+//Utilities
 import PropertyModel from "../models/Property.js";
 import RoomModel from "../models/Room.js";
-
 import {
   couldNotCreateError,
   createError,
@@ -157,10 +158,6 @@ export const deleteRoom = async (req, res, next) => {
     }
 
     const deletedRoom = await RoomModel.findByIdAndDelete(id);
-
-    // if (!deletedRoom) {
-    //   return next(notFoundOrInvalidDataError("room"));
-    // }
 
     const updatedProperty = await PropertyModel.findByIdAndUpdate(propertyid, {
       $pull: { rooms: id },

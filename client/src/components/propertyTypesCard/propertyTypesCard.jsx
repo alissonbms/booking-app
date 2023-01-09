@@ -1,7 +1,10 @@
-import useFetch from "../../hooks/useFetch";
-import { PropertyCard, LoaderContainer } from "./propertyTypesCard.styles";
-import Loading from "../loading/Loading";
 import { ClockLoader } from "react-spinners";
+
+//Styles
+import { PropertyCard, LoaderContainer } from "./propertyTypesCard.styles";
+
+//Utilities
+import useFetch from "../../hooks/useFetch";
 
 const PropertyTypesCard = () => {
   const { isFetching, data } = useFetch("/api/property/countByType");

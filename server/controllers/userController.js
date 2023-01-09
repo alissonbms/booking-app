@@ -1,12 +1,14 @@
-import UserModel from "../models/User.js";
 import { Types } from "mongoose";
+import jwt from "jsonwebtoken";
+
+//Utilities
+import UserModel from "../models/User.js";
 import {
   notFoundOrInvalidDataError,
   idIsRequiredError,
   missingEntityRegistersError,
   createError,
 } from "../utils/customErrors.js";
-import jwt from "jsonwebtoken";
 
 export const getUsers = async (req, res, next) => {
   try {

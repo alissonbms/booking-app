@@ -1,5 +1,3 @@
-import "./footer.styles.js";
-
 import {
   FaFacebookF,
   FaTwitter,
@@ -7,6 +5,9 @@ import {
   FaLinkedinIn,
   FaYoutube,
 } from "react-icons/fa";
+
+//Styles
+import "./footer.styles.js";
 import { Footer } from "./footer.styles.js";
 
 const FooterComponent = () => {
