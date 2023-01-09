@@ -32,7 +32,7 @@ import Properties from "./pages/propertyList/PropertyList";
 import Property from "./pages/property/Property";
 import Login from "./pages/login-register/Login";
 import Register from "./pages/login-register/Register";
-import PaymentConfirmation from "./pages/paymentConfirmation/paymentConfirmation";
+import PaymentConfirmation from "./pages/paymentConfirmation/PaymentConfirmation";
 
 import MyAdminProvider from "./admin/src/MyAdminProvider";
 
