@@ -24,7 +24,6 @@ const New = () => {
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
   const [photoUrl, setPhotoUrl] = useState("");
-  console.log(import.meta.env.VITE_CLOUD_KEY);
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -50,7 +49,11 @@ const New = () => {
         if (isUpdating) {
           await axios
             .patch(`/api/user/${updateData.data._id}`, { ...info, photo: url })
-            .then(alert.success("User updated successfully!"));
+            .catch((error) => {
+              error
+                ? alert.error(error.response.data.message)
+                : alert.success("User updated successfully!");
+            });
         } else {
           await axios
             .post(`/api/auth/register`, { ...info, photo: url })
@@ -60,7 +63,11 @@ const New = () => {
         if (isUpdating) {
           await axios
             .patch(`/api/user/${updateData.data._id}`, { ...info })
-            .then(alert.success("User updated successfully!"));
+            .catch((error) => {
+              error
+                ? alert.error(error.response.data.message)
+                : alert.success("User updated successfully!");
+            });
         } else {
           await axios
             .post(`/api/auth/register`, { ...info })

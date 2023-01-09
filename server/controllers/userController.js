@@ -50,6 +50,14 @@ export const updateUser = async (req, res, next) => {
     return next(idIsRequiredError("user"));
   }
 
+  const notAllowedUpdates = ["email"];
+  const requestedUpdates = Object.keys(req.body);
+
+  for (const update of requestedUpdates) {
+    if (notAllowedUpdates.includes(update))
+      return next(createError(400, "You can not update email!"));
+  }
+
   const isAdmin = req.body.isAdmin;
 
   if (isAdmin) {
