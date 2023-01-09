@@ -25,7 +25,7 @@ import ListData from "./admin/src/pages/listData/ListData";
 import LoginAdmin from "./admin/src/pages/login/LoginAdmin";
 import New from "./admin/src/pages/new/New";
 import Single from "./admin/src/pages/single/Single";
-import NewProperty from "./admin/src/pages/newProperty/newProperty";
+import NewProperty from "./admin/src/pages/newProperty/NewProperty";
 import NewRoom from "./admin/src/pages/newRoom/NewRoom";
 import Home from "./pages/home/Home";
 import Properties from "./pages/propertyList/PropertyList";
