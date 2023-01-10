@@ -14,7 +14,7 @@ import useFetch from "../../hooks/useFetch";
 const Featured = () => {
   const [today, setToday] = useState();
   const { data, isFetching } = useFetch(
-    `https://booking-app-api-sigma.vercel.app/api/transaction`
+    `https://abms-booking-app-api.onrender.com/api/transaction`
   );
 
   useEffect(() => {

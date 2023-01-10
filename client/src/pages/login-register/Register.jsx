@@ -13,8 +13,7 @@ import NavComponent from "../../components/nav/NavComponent";
 import { AuthContext } from "../../contexts/AuthContext";
 
 const Register = () => {
-  const { authDispatch, isAuthenticating, user, error } =
-    useContext(AuthContext);
+  const { user, error } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,23 +34,15 @@ const Register = () => {
   const handleClick = async (e) => {
     e.preventDefault();
 
-    authDispatch({ type: "AUTHENTICATION_START" });
     try {
-      const response = await axios.post(
-        "https://booking-app-api-sigma.vercel.app/api/auth/register",
+      await axios.post(
+        "https://abms-booking-app-api.onrender.com/api/auth/register",
         credentials
       );
-      authDispatch({
-        type: "AUTHENTICATION_SUCCESS",
-        payload: response.data,
-      });
-      navigate("/");
     } catch (error) {
       console.log(error);
-      authDispatch({
-        type: "AUTHENTICATION_FAILURE",
-        payload: error.response.data,
-      });
+    } finally {
+      navigate("/login");
     }
   };
 
@@ -66,7 +57,7 @@ const Register = () => {
       ) : (
         <>
           <NavComponent />
-          <Container>
+          <Container className="registerC">
             <Wrapper>
               <Title>Register your details and be able to book rooms</Title>
               <Input
@@ -111,9 +102,7 @@ const Register = () => {
                 id="photo"
                 onChange={handleChange}
               />
-              <Button disabled={isAuthenticating} onClick={handleClick}>
-                Register
-              </Button>
+              <Button onClick={handleClick}>Register</Button>
               {error && <span className="error">{error.message}</span>}
               <Advices>
                 <p onClick={() => navigate("/login")}>

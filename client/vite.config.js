@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://booking-app-api-sigma.vercel.app",
+        target: "https://abms-booking-app-api.onrender.com",
         changeOrigin: true,
         secure: false,
       },

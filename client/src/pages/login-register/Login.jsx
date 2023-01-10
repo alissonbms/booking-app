@@ -38,7 +38,7 @@ const Login = () => {
     authDispatch({ type: "AUTHENTICATION_START" });
     try {
       const response = await axios.post(
-        "https://booking-app-api-sigma.vercel.app/api/auth/Login",
+        "https://abms-booking-app-api.onrender.com/api/auth/Login",
         credentials
       );
       authDispatch({

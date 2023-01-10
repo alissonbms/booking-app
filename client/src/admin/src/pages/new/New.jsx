@@ -49,7 +49,7 @@ const New = () => {
         if (isUpdating) {
           await axios
             .patch(
-              `https://booking-app-api-sigma.vercel.app/api/user/${updateData.data._id}`,
+              `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
               { ...info, photo: url }
             )
             .catch((error) => {
@@ -60,7 +60,7 @@ const New = () => {
         } else {
           await axios
             .post(
-              `https://booking-app-api-sigma.vercel.app/api/auth/register`,
+              `https://abms-booking-app-api.onrender.com/api/auth/register`,
               { ...info, photo: url }
             )
             .then(alert.success("User created successfully!"));
@@ -69,7 +69,7 @@ const New = () => {
         if (isUpdating) {
           await axios
             .patch(
-              `https://booking-app-api-sigma.vercel.app/api/user/${updateData.data._id}`,
+              `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
               { ...info }
             )
             .catch((error) => {
@@ -80,7 +80,7 @@ const New = () => {
         } else {
           await axios
             .post(
-              `https://booking-app-api-sigma.vercel.app/api/auth/register`,
+              `https://abms-booking-app-api.onrender.com/api/auth/register`,
               { ...info }
             )
 

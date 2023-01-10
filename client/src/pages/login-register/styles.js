@@ -1,11 +1,13 @@
 import styled from "styled-components";
 
 export const Container = styled.div`
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 100px;
+  padding-bottom: 20px;
 `;
 
 export const Advices = styled.div`
@@ -67,6 +69,7 @@ export const Title = styled.h1`
     font-size: 28px;
     text-align: center;
   }
+  padding: 0px 20px;
 `;
 
 export const Input = styled.input`

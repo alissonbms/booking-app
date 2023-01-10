@@ -29,9 +29,11 @@ const LoginAdmin = () => {
     authDispatch({ type: "AUTHENTICATION_START" });
     try {
       const response = await axios.post(
-        "https://booking-app-api-sigma.vercel.app/api/auth/Login",
+        "https://abms-booking-app-api.onrender.com/api/auth/Login",
         credentials
       );
+
+      console.log(response.data);
 
       if (response.data.isAdmin) {
         authDispatch({
@@ -85,7 +87,7 @@ const LoginAdmin = () => {
         {error && <span>{error.message}</span>}
       </div>
       <div className="loginBackgroundWrapper">
-        <img alt="data" src="../../../data.svg" />
+        <img alt="data" src="../../../../../data.svg" />
       </div>
     </div>
   );

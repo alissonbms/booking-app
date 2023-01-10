@@ -23,7 +23,7 @@ const Single = () => {
   const location = useLocation();
   const id = location.pathname.split("/")[3];
   const { data, isFetching } = useFetch(
-    `https://booking-app-api-sigma.vercel.app/api/user/${id}`
+    `https://abms-booking-app-api.onrender.com/api/user/${id}`
   );
 
   const handleEdit = () => {

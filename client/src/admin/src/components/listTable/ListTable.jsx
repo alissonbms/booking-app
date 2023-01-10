@@ -14,7 +14,7 @@ import useFetch from "../../hooks/useFetch";
 
 const ListTable = ({ email }) => {
   const { data, isFetching } = useFetch(
-    `https://booking-app-api-sigma.vercel.app/api/transaction?${
+    `https://abms-booking-app-api.onrender.com/api/transaction?${
       email ? `customerEmail=${email}&limit=5` : `limit=5`
     }`
   );
