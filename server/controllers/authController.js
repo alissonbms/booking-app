@@ -84,8 +84,6 @@ export const login = async (req, res, next) => {
 
     res
       .cookie("access_token", token, {
-        domain: ".abms-booking-app-api.onrender.com",
-        secure: true,
         httpOnly: true,
       })
 

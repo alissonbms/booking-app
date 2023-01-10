@@ -21,7 +21,7 @@ import transactionRouter from "./routes/transactionRouter.js";
 import propertyRouter from "./routes/propertyRouter.js";
 
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(helmet());
 
 dotenv.config();

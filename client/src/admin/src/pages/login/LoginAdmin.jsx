@@ -33,6 +33,19 @@ const LoginAdmin = () => {
         credentials
       );
 
+      // const response = await axios.post(
+      //   "https://abms-booking-app-api.onrender.com/api/auth/Login",
+      //   credentials,
+      //   {
+      //     credentials: "include",
+      //     withCredentials: true,
+      //     headers: {
+      //       "Access-Control-Allow-Origin": "*",
+      //       "Content-Type": "application/json",
+      //     },
+      //   }
+      // );
+
       console.log(response.data);
 
       if (response.data.isAdmin) {
