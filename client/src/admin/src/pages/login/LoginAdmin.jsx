@@ -30,7 +30,8 @@ const LoginAdmin = () => {
     try {
       const response = await axios.post(
         "https://abms-booking-app-api.onrender.com/api/auth/Login",
-        credentials
+        credentials,
+        { credentials: "include" }
       );
 
       // const response = await axios.post(

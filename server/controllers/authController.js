@@ -86,7 +86,6 @@ export const login = async (req, res, next) => {
       .cookie("access_token", token, {
         httpOnly: true,
       })
-
       .status(200)
       .json({ details: { ...otherDetails }, isAdmin });
   } catch (error) {
