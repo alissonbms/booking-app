@@ -28,31 +28,31 @@ const LoginAdmin = () => {
 
     authDispatch({ type: "AUTHENTICATION_START" });
     try {
-      const response = await axios.post(
-        "https://abms-booking-app-api.onrender.com/api/auth/Login",
-        credentials,
-        { credentials: "include" }
+      const response = await fetch(
+        "https://abms-booking-app-api.onrender.com/api/auth/login",
+        {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: JSON.stringify({
+            email: credentials.email,
+            password: credentials.password,
+            username: credentials.username,
+          }),
+        }
       );
 
-      // const response = await axios.post(
-      //   "https://abms-booking-app-api.onrender.com/api/auth/Login",
-      //   credentials,
-      //   {
-      //     credentials: "include",
-      //     withCredentials: true,
-      //     headers: {
-      //       "Access-Control-Allow-Origin": "*",
-      //       "Content-Type": "application/json",
-      //     },
-      //   }
-      // );
+      const result = await response.json();
 
-      console.log(response.data);
+      console.log(result);
 
-      if (response.data.isAdmin) {
+      if (result.isAdmin) {
         authDispatch({
           type: "AUTHENTICATION_SUCCESS",
-          payload: response.data.details,
+          payload: result.details,
         });
 
         navigate("/admin/");
