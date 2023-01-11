@@ -23,7 +23,7 @@ const Chart = ({ aspect, title, email }) => {
   const [lastLastM, setLastLastM] = useState("");
 
   const { data, isFetching } = useFetch(
-    `https://abms-booking-app-api.onrender.com/api/transaction${
+    `https://abms-booking-app-api.vercel.app/api/transaction${
       email ? `?customerEmail=${email}` : ``
     }`
   );

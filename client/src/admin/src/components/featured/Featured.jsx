@@ -14,7 +14,7 @@ import useFetch from "../../hooks/useFetch";
 const Featured = () => {
   const [today, setToday] = useState();
   const { data, isFetching } = useFetch(
-    `https://abms-booking-app-api.onrender.com/api/transaction`
+    `https://abms-booking-app-api.vercel.app/api/transaction`
   );
 
   useEffect(() => {

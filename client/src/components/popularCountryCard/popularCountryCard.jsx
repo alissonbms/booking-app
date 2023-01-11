@@ -12,7 +12,7 @@ import useFetch from "../../hooks/useFetch";
 
 const PopularCountryCard = () => {
   const { data, isFetching } = useFetch(
-    "https://abms-booking-app-api.onrender.com/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
+    "https://abms-booking-app-api.vercel.app/api/property/countByCountry?countries=UK,Mexico,Brazil,Iceland"
   );
   return (
     <>

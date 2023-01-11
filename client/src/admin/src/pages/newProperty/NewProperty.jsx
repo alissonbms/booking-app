@@ -27,7 +27,7 @@ const NewProperty = () => {
   const [info, setInfo] = useState({});
 
   const { data, isFetching } = useFetch(
-    "https://abms-booking-app-api.onrender.com/api/room"
+    "https://abms-booking-app-api.vercel.app/api/room"
   );
 
   const handleChange = (e) => {
@@ -63,14 +63,14 @@ const NewProperty = () => {
       if (isUpdating) {
         await axios
           .patch(
-            `https://abms-booking-app-api.onrender.com/api/property/${updateData.data._id}`,
+            `https://abms-booking-app-api.vercel.app/api/property/${updateData.data._id}`,
             newProperty
           )
           .then(alert.success("Property updated successfully!"));
       } else {
         await axios
           .post(
-            "https://abms-booking-app-api.onrender.com/api/property",
+            "https://abms-booking-app-api.vercel.app/api/property",
             newProperty
           )
           .then(alert.success("Property created successfully!"));

@@ -66,7 +66,7 @@ const PaymentConfirmation = () => {
       await Promise.all(
         selectedRoomsContext.map((room) => {
           const res = axios.patch(
-            `https://abms-booking-app-api.onrender.com/api/room/availability/${room}`,
+            `https://abms-booking-app-api.vercel.app/api/room/availability/${room}`,
             {
               dates: allDatesContext,
             }
@@ -76,7 +76,7 @@ const PaymentConfirmation = () => {
       );
 
       await axios.post(
-        "https://abms-booking-app-api.onrender.com/api/transaction",
+        "https://abms-booking-app-api.vercel.app/api/transaction",
         {
           customer: user.username,
           customerEmail: user.email,

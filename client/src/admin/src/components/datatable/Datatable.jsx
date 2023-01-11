@@ -19,7 +19,7 @@ const Datatable = ({ title, columns }) => {
   const path = location.pathname.split("/")[2];
   const [list, setList] = useState([]);
   const { data, isFetching, reFetch } = useFetch(
-    `https://abms-booking-app-api.onrender.com/api/${path}`
+    `https://abms-booking-app-api.vercel.app/api/${path}`
   );
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const Datatable = ({ title, columns }) => {
   const handleDelete = async (id) => {
     try {
       await axios
-        .delete(`https://abms-booking-app-api.onrender.com/api/${path}/${id}`)
+        .delete(`https://abms-booking-app-api.vercel.app/api/${path}/${id}`)
         .then(alert.success(`${path} deleted successfully!`));
       setList(list.filter((item) => item._id !== id));
     } catch (error) {
@@ -44,14 +44,14 @@ const Datatable = ({ title, columns }) => {
   const handleDeleteRoom = async (id) => {
     const response = await axios
       .get(
-        `https://abms-booking-app-api.onrender.com/api/property/findByRoom?id=${id}`
+        `https://abms-booking-app-api.vercel.app/api/property/findByRoom?id=${id}`
       )
       .then(alert.success("Room deleted successfully!"));
     const property = response.data[0];
 
     try {
       await axios.delete(
-        `https://abms-booking-app-api.onrender.com/api/${path}/${property._id}/${id}`
+        `https://abms-booking-app-api.vercel.app/api/${path}/${property._id}/${id}`
       );
       setList(list.filter((item) => item._id !== id));
     } catch (error) {
@@ -68,8 +68,8 @@ const Datatable = ({ title, columns }) => {
     try {
       const response = await axios.get(
         path === "property"
-          ? `https://abms-booking-app-api.onrender.com/api/property/find/${id}`
-          : `https://abms-booking-app-api.onrender.com/api/room/${id}`
+          ? `https://abms-booking-app-api.vercel.app/api/property/find/${id}`
+          : `https://abms-booking-app-api.vercel.app/api/room/${id}`
       );
       const data = response.data;
       updateDispatch({ type: "UPDATE", payload: { data } });

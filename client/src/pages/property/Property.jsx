@@ -56,7 +56,7 @@ const Property = () => {
   const propertyName = location.state.propertyName;
   const propertyPhoto = location.state.propertyPhoto;
   const { data, isFetching } = useFetch(
-    `https://abms-booking-app-api.onrender.com/api/property/find/${id}`
+    `https://abms-booking-app-api.vercel.app/api/property/find/${id}`
   );
 
   const handleReserve = () => {

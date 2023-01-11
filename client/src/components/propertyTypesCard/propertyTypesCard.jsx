@@ -8,7 +8,7 @@ import useFetch from "../../hooks/useFetch";
 
 const PropertyTypesCard = () => {
   const { isFetching, data } = useFetch(
-    "https://abms-booking-app-api.onrender.com/api/property/countByType"
+    "https://abms-booking-app-api.vercel.app/api/property/countByType"
   );
   return (
     <>
