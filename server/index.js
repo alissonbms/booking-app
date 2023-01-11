@@ -66,3 +66,11 @@ app.use(errorHandler);
 //     return res.type("txt").send("404 Not Found");
 //   }
 // });
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/dist/index.html"), (error) => {
+    if (error) {
+      res.status(500).send(error);
+    }
+  });
+});
