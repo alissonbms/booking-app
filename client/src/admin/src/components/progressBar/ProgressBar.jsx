@@ -6,7 +6,7 @@ import useFetch from "../../hooks/useFetch";
 
 const ProgressBar = () => {
   const { data, isFetching } = useFetch(
-    `https://abms-booking-app-api.vercel.app/api/room`
+    `https://abms-booking-app-api.onrender.com/api/room`
   );
 
   const rooms = [];

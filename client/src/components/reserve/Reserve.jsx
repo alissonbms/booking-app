@@ -37,7 +37,7 @@ const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
     useContext(ReserveContext);
 
   const { data, isFetching, error } = useFetch(
-    `https://abms-booking-app-api.vercel.app/api/property/rooms/${propertyid}`
+    `https://abms-booking-app-api.onrender.com/api/property/rooms/${propertyid}`
   );
 
   const handleSelect = (value, checked, price) => {
@@ -108,7 +108,7 @@ const Reserve = ({ setOpen, propertyid, propertyName, propertyPhoto }) => {
       localStorage.setItem("valuePayed", JSON.stringify(totalPrice));
 
       const { data } = await axios.post(
-        `https://abms-booking-app-api.vercel.app/api/stripe/create-checkout-session`,
+        `https://abms-booking-app-api.onrender.com/api/stripe/create-checkout-session`,
         {
           buyRooms,
         }

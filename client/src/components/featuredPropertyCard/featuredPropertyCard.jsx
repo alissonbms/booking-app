@@ -19,7 +19,7 @@ const FeaturedPropertyCard = () => {
   const navigate = useNavigate();
 
   const { data, isFetching } = useFetch(
-    "https://abms-booking-app-api.vercel.app/api/property?featured=true&limit=5"
+    "https://abms-booking-app-api.onrender.com/api/property?featured=true&limit=5"
   );
 
   return (

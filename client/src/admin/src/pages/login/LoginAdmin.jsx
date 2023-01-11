@@ -29,7 +29,7 @@ const LoginAdmin = () => {
     authDispatch({ type: "AUTHENTICATION_START" });
     try {
       const response = await fetch(
-        "https://abms-booking-app-api.vercel.app/api/auth/login",
+        "https://abms-booking-app-api.onrender.com/api/auth/login",
         {
           method: "POST",
           credentials: "include",

@@ -36,7 +36,7 @@ const Register = () => {
 
     try {
       await axios.post(
-        "https://abms-booking-app-api.vercel.app/api/auth/register",
+        "https://abms-booking-app-api.onrender.com/api/auth/register",
         credentials
       );
     } catch (error) {
