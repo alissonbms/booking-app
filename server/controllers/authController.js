@@ -87,6 +87,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
         sameSite: "None",
         secure: true,
+        maxAge: 7200,
       })
       .status(200)
       .json({ details: { ...otherDetails }, isAdmin });
