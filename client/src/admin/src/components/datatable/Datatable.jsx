@@ -23,7 +23,10 @@ const Datatable = ({ title, columns }) => {
   );
 
   useEffect(() => {
-    reFetch(`/api/${location.pathname.split("/")[2]}`);
+    reFetch(`https://abms-booking-app-api.onrender.com/api/${
+      location.pathname.split("/")[2]
+    }
+    `);
   }, [path]);
 
   useEffect(() => {
