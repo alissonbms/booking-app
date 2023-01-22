@@ -61,19 +61,26 @@ const NewProperty = () => {
         photos: list,
       };
       if (isUpdating) {
-        await axios
-          .patch(
-            `https://abms-booking-app-api.onrender.com/api/property/${updateData.data._id}`,
-            newProperty
-          )
-          .then(alert.success("Property updated successfully!"));
+        await fetch(
+          `https://abms-booking-app-api.onrender.com/api/property/${updateData.data._id}`,
+          {
+            method: "PATCH",
+            credentials: "include",
+            headers: {
+              "Access-Control-Allow-Credentials": true,
+            },
+            body: newProperty,
+          }
+        ).then(alert.success("Property updated successfully!"));
       } else {
-        await axios
-          .post(
-            "https://abms-booking-app-api.onrender.com/api/property",
-            newProperty
-          )
-          .then(alert.success("Property created successfully!"));
+        await fetch("https://abms-booking-app-api.onrender.com/api/property", {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Access-Control-Allow-Credentials": true,
+          },
+          body: newProperty,
+        }).then(alert.success("Property created successfully!"));
       }
     } catch (error) {
       console.log(error);

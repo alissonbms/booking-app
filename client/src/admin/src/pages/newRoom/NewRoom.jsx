@@ -49,19 +49,29 @@ const NewRoom = () => {
       };
 
       if (isUpdating) {
-        await axios
-          .patch(
-            `https://abms-booking-app-api.onrender.com/api/room/${updateData.data._id}`,
-            newRoom
-          )
-          .then(alert.success("Room updated successfully!"));
+        await fetch(
+          `https://abms-booking-app-api.onrender.com/api/room/${updateData.data._id}`,
+          {
+            method: "PATCH",
+            credentials: "include",
+            headers: {
+              "Access-Control-Allow-Credentials": true,
+            },
+            body: newRoom,
+          }
+        ).then(alert.success("Room updated successfully!"));
       } else {
-        await axios
-          .post(
-            `https://abms-booking-app-api.onrender.com/api/room/${propertyId}`,
-            newRoom
-          )
-          .then(alert.success("Room created successfully!"));
+        await fetch(
+          `https://abms-booking-app-api.onrender.com/api/room/${propertyId}`,
+          {
+            method: "POST",
+            credentials: "include",
+            headers: {
+              "Access-Control-Allow-Credentials": true,
+            },
+            body: newRoom,
+          }
+        ).then(alert.success("Room created successfully!"));
       }
     } catch (error) {
       console.log(error);

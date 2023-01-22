@@ -8,7 +8,7 @@ import { useAlert } from "react-alert";
 import "./datatable.scss";
 
 //Utilities
-import useFetch from "../../hooks/useFetch";
+import useFetchWithCredentials from "../../hooks/useFetchWithCredentials";
 import { UpdateContext } from "../../../../contexts/UpdateContext";
 
 const Datatable = ({ title, columns }) => {
@@ -18,7 +18,7 @@ const Datatable = ({ title, columns }) => {
   const { updateDispatch, isLoading } = useContext(UpdateContext);
   const path = location.pathname.split("/")[2];
   const [list, setList] = useState([]);
-  const { data, isFetching, reFetch } = useFetch(
+  const { data, isFetching, reFetch } = useFetchWithCredentials(
     `https://abms-booking-app-api.onrender.com/api/${path}`
   );
 
@@ -32,9 +32,16 @@ const Datatable = ({ title, columns }) => {
 
   const handleDelete = async (id) => {
     try {
-      await axios
-        .delete(`https://abms-booking-app-api.onrender.com/api/${path}/${id}`)
-        .then(alert.success(`${path} deleted successfully!`));
+      await fetch(
+        `https://abms-booking-app-api.onrender.com/api/${path}/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
+      ).then(alert.success(`${path} deleted successfully!`));
       setList(list.filter((item) => item._id !== id));
     } catch (error) {
       console.log(error);
@@ -42,16 +49,29 @@ const Datatable = ({ title, columns }) => {
   };
 
   const handleDeleteRoom = async (id) => {
-    const response = await axios
-      .get(
-        `https://abms-booking-app-api.onrender.com/api/property/findByRoom?id=${id}`
-      )
-      .then(alert.success("Room deleted successfully!"));
-    const property = response.data[0];
+    const response = await fetch(
+      `https://abms-booking-app-api.onrender.com/api/property/findByRoom?id=${id}`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Access-Control-Allow-Credentials": true,
+        },
+      }
+    ).then(alert.success("Room deleted successfully!"));
+    const result = await response.json();
+    const property = result[0];
 
     try {
-      await axios.delete(
-        `https://abms-booking-app-api.onrender.com/api/${path}/${property._id}/${id}`
+      await fetch(
+        `https://abms-booking-app-api.onrender.com/api/${path}/${property._id}/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+          headers: {
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
       );
       setList(list.filter((item) => item._id !== id));
     } catch (error) {
@@ -66,12 +86,21 @@ const Datatable = ({ title, columns }) => {
 
   const handleUpdate = async (id) => {
     try {
-      const response = await axios.get(
+      const response = await fetch(
         path === "property"
           ? `https://abms-booking-app-api.onrender.com/api/property/find/${id}`
-          : `https://abms-booking-app-api.onrender.com/api/room/${id}`
+          : `https://abms-booking-app-api.onrender.com/api/room/${id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
       );
-      const data = response.data;
+
+      const result = await response.json();
+      const data = result;
       updateDispatch({ type: "UPDATE", payload: { data } });
     } catch (error) {
       console.log(error);

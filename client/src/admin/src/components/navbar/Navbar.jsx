@@ -6,6 +6,7 @@ import { useContext } from "react";
 import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import MenuOpenSharpIcon from "@mui/icons-material/MenuOpenSharp";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 //Styles
 import "./navbar.scss";

@@ -59,7 +59,7 @@ const New = () => {
             }
           ).catch((error) => {
             error
-              ? alert.error(error.response.data.message)
+              ? alert.error("Something went wrong")
               : alert.success("User updated successfully!");
           });
         } else {
@@ -87,7 +87,7 @@ const New = () => {
             }
           ).catch((error) => {
             error
-              ? alert.error(error.response.data.message)
+              ? alert.error("Something went wrong")
               : alert.success("User updated successfully!");
           });
         } else {

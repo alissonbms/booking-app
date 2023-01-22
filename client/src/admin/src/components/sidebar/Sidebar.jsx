@@ -14,6 +14,7 @@ import SettingsSystemDaydreamOutlinedIcon from "@mui/icons-material/SettingsSyst
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import axios from "axios";
 
 //Styles
 import "./sidebar.scss";
