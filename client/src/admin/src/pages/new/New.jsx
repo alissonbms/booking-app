@@ -47,16 +47,21 @@ const New = () => {
         const { url } = uploadRes.data;
 
         if (isUpdating) {
-          await axios
-            .patch(
-              `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
-              { ...info, photo: url }
-            )
-            .catch((error) => {
-              error
-                ? alert.error(error.response.data.message)
-                : alert.success("User updated successfully!");
-            });
+          await fetch(
+            `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
+            {
+              method: "PATCH",
+              credentials: "include",
+              headers: {
+                "Access-Control-Allow-Credentials": true,
+              },
+              body: { ...info, photo: url },
+            }
+          ).catch((error) => {
+            error
+              ? alert.error(error.response.data.message)
+              : alert.success("User updated successfully!");
+          });
         } else {
           await axios
             .post(
@@ -70,16 +75,21 @@ const New = () => {
         }
       } else {
         if (isUpdating) {
-          await axios
-            .patch(
-              `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
-              { ...info }
-            )
-            .catch((error) => {
-              error
-                ? alert.error(error.response.data.message)
-                : alert.success("User updated successfully!");
-            });
+          await fetch(
+            `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
+            {
+              method: "PATCH",
+              credentials: "include",
+              headers: {
+                "Access-Control-Allow-Credentials": true,
+              },
+              body: { ...info },
+            }
+          ).catch((error) => {
+            error
+              ? alert.error(error.response.data.message)
+              : alert.success("User updated successfully!");
+          });
         } else {
           await axios
             .post(

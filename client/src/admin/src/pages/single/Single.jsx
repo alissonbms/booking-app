@@ -11,9 +11,9 @@ import Chart from "../../components/chart/Chart";
 import ListTable from "../../components/listTable/ListTable";
 
 //Utilities
-import useFetch from "../../hooks/useFetch";
 import { SidebarContext } from "../../../../contexts/SidebarContext";
 import { UpdateContext } from "../../../../contexts/UpdateContext";
+import { useEffect } from "react";
 
 const Single = () => {
   const navigate = useNavigate();
@@ -22,9 +22,30 @@ const Single = () => {
 
   const location = useLocation();
   const id = location.pathname.split("/")[3];
-  const { data, isFetching } = useFetch(
-    `https://abms-booking-app-api.onrender.com/api/user/${id}`
-  );
+  const [isFetching, setIsFetching] = useState(false);
+  const [data, setData] = useState(false);
+
+  useEffect(() => {
+    setIsFetching(true);
+    const fetchWithCredentials = async () => {
+      const response = await fetch(
+        `https://abms-booking-app-api.onrender.com/api/user/${id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            "Access-Control-Allow-Credentials": true,
+          },
+        }
+      );
+
+      const result = await response.json();
+      setData(result);
+      setIsFetching(false);
+    };
+
+    fetchWithCredentials();
+  }, []);
 
   const handleEdit = () => {
     updateDispatch({ type: "UPDATE", payload: { data } });
