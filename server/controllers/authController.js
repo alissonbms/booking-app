@@ -88,7 +88,7 @@ export const login = async (req, res, next) => {
         httpOnly: true,
         sameSite: "lax",
         secure: process.env.NODE_ENV != "development",
-        expires: new Date(Date.now() + process.env.EXPIRE_TOKEN),
+        maxAge: 28800000,
       })
       .json({ success: true, token, details: { ...otherDetails }, isAdmin });
   } catch (error) {
