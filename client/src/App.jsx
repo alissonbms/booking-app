@@ -38,8 +38,9 @@ import MyAdminProvider from "./admin/src/MyAdminProvider";
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
+  const token = JSON.parse(localStorage.getItem("access_token_storage"));
 
-  if (user) {
+  if (user && token) {
     return children;
   } else {
     return <Navigate to="/admin/login" />;

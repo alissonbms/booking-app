@@ -32,8 +32,16 @@ const Navbar = () => {
     document.body.style.backgroundColor = "#fff";
   };
 
-  const handleLogout = () => {
-    authDispatch({ type: "LOGOUT" });
+  const handleLogout = async () => {
+    await axios
+      .get("https://abms-booking-app-api.onrender.com/api/auth/logout")
+      .then(() => {
+        authDispatch({ type: "LOGOUT" });
+        localStorage.removeItem("access_token_storage");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (

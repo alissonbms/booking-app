@@ -77,21 +77,29 @@ export const login = async (req, res, next) => {
     const token = jwt.sign(
       { id: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET_KEY,
-      { expiresIn: "2h" }
+      { expiresIn: "8h" }
     );
 
     const { password, isAdmin, ...otherDetails } = user._doc;
 
     res
+      .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
-        sameSite: "None",
-        secure: true,
-        maxAge: 7200,
+        sameSite: "lax",
+        secure: process.env.NODE_ENV != "development",
+        expires: new Date(Date.now() + process.env.EXPIRE_TOKEN),
       })
-      .status(200)
-      .json({ details: { ...otherDetails }, isAdmin });
+      .json({ success: true, token, details: { ...otherDetails }, isAdmin });
   } catch (error) {
     next(error);
   }
+};
+
+export const logout = async (req, res, next) => {
+  res.clearCookie("access_token");
+  res.status(200).json({
+    success: true,
+    message: "Logged out",
+  });
 };
