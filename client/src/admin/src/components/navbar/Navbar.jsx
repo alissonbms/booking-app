@@ -39,6 +39,8 @@ const Navbar = () => {
       .then(() => {
         authDispatch({ type: "LOGOUT" });
         localStorage.removeItem("access_token_storage");
+
+        navigate("/admin/login");
       })
       .catch((error) => {
         console.log(error);
