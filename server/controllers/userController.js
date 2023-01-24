@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 
 //Utilities
 import UserModel from "../models/User.js";
@@ -70,6 +71,10 @@ export const updateUser = async (req, res, next) => {
 
     if (req.user.isAdmin) {
       try {
+        if (req.body.password) {
+          const salt = bcrypt.genSaltSync(10);
+          req.body.password = bcrypt.hashSync(req.body.password, salt);
+        }
         const updatedUser = await UserModel.findByIdAndUpdate(
           id,
           { $set: req.body },
@@ -89,6 +94,11 @@ export const updateUser = async (req, res, next) => {
     }
   } else {
     try {
+      if (req.body.password) {
+        const salt = bcrypt.genSaltSync(10);
+        req.body.password = bcrypt.hashSync(req.body.password, salt);
+      }
+
       const updatedUser = await UserModel.findByIdAndUpdate(
         id,
         { $set: req.body },

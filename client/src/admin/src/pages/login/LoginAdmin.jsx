@@ -12,7 +12,8 @@ const LoginAdmin = () => {
   const navigate = useNavigate();
   const { authDispatch, isAuthenticating, user, error } =
     useContext(AuthContext);
-
+  const [loginAdminError, setLoginAdminError] = useState();
+  const [hasError, setHasError] = useState(false);
   const [credentials, setCredentials] = useState({
     username: undefined,
     password: undefined,
@@ -57,7 +58,8 @@ const LoginAdmin = () => {
         });
       }
     } catch (error) {
-      console.log(error);
+      setHasError(true);
+      setLoginAdminError(error.response.data.message);
       authDispatch({
         type: "AUTHENTICATION_FAILURE",
         payload: error.response.data,
@@ -92,7 +94,7 @@ const LoginAdmin = () => {
           Login
         </button>
         <p onClick={() => navigate("/")}>Go to BookingGood website</p>
-        {error && <span>{error.message}</span>}
+        {hasError && <span>{loginAdminError}</span>}
       </div>
       <div className="loginBackgroundWrapper">
         <img alt="data" src="../../../../../data.svg" />

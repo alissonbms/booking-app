@@ -15,11 +15,14 @@ import { AuthContext } from "../../contexts/AuthContext";
 const Register = () => {
   const { user, error } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [registerError, setRegisterError] = useState();
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
+    setHasError(false);
     setIsLoading(false);
   }, []);
 
@@ -39,10 +42,11 @@ const Register = () => {
         "https://abms-booking-app-api.onrender.com/api/auth/register",
         credentials
       );
-    } catch (error) {
-      console.log(error);
-    } finally {
+
       navigate("/login");
+    } catch (error) {
+      setRegisterError(error.response.data.message);
+      setHasError(true);
     }
   };
 
@@ -103,7 +107,7 @@ const Register = () => {
                 onChange={handleChange}
               />
               <Button onClick={handleClick}>Register</Button>
-              {error && <span className="error">{error.message}</span>}
+              {hasError && <span className="error">{registerError}</span>}
               <Advices>
                 <p onClick={() => navigate("/login")}>
                   Already have an account?

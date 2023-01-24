@@ -16,11 +16,14 @@ const Login = () => {
   const { authDispatch, isAuthenticating, user, error } =
     useContext(AuthContext);
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState();
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     if (user) {
       navigate("/");
     }
+    setHasError(false);
     setIsLoading(false);
   }, []);
 
@@ -47,7 +50,8 @@ const Login = () => {
       });
       navigate("/");
     } catch (error) {
-      console.log(error);
+      setLoginError(error.response.data.message);
+      setHasError(true);
       authDispatch({
         type: "AUTHENTICATION_FAILURE",
         payload: error.response.data,
@@ -95,7 +99,7 @@ const Login = () => {
                   Want to see the dashboard?
                 </p>
               </Advices>
-              {error && <span className="error">{error.message}</span>}
+              {hasError && <span className="error">{loginError}</span>}
             </Wrapper>
           </Container>
         </>
