@@ -32,7 +32,7 @@ const Property = () => {
   const navigate = useNavigate();
   const [days, setDays] = useState();
   const location = useLocation();
-  const id = location.pathname.split("/")[2];
+  const id = location.pathname.split("/").pop();
   const propertyName = location.state.propertyName;
   const propertyPhoto = location.state.propertyPhoto;
   const { data, isFetching } = useFetch(
@@ -63,6 +63,7 @@ const Property = () => {
       if (error instanceof TypeError) {
         navigate("/");
       }
+      console.log(error);
     }
   }, []);
 

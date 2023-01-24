@@ -9,7 +9,9 @@ export const getTransactions = async (req, res, next) => {
   const { ...others } = req.query;
   const transactions = await TransactionModel.find({
     ...others,
-  }).limit(req.query.limit);
+  })
+    .sort({ updatedAt: -1 })
+    .limit(req.query.limit);
 
   if (!transactions.length) {
     return res.status(404).json({ message: "No transactions found" });
