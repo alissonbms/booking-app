@@ -34,27 +34,7 @@ const useFetch = (url) => {
     }
   };
 
-  const postData = async (url, username, email, password) => {
-    setIsFetching(true);
-    try {
-      const response = await axios({
-        method: "post",
-        url: url,
-        data: {
-          username: username,
-          email: email,
-          password: password,
-        },
-      });
-      setData(response.data);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsFetching(false);
-    }
-  };
-
-  return { data, isFetching, reFetch, postData };
+  return { data, isFetching, reFetch };
 };
 
 export default useFetch;

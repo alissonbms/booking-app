@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const useFetch = (url) => {
+const useFetch = (url, withCookie) => {
   const [isFetching, setIsFetching] = useState(false);
   const [data, setData] = useState([]);
   const [error, setError] = useState(false);
@@ -10,7 +10,11 @@ const useFetch = (url) => {
     const fetchData = async () => {
       setIsFetching(true);
       try {
-        const response = await axios.get(url);
+        const response = withCookie
+          ? await axios.get(url, {
+              withCredentials: true,
+            })
+          : await axios.get(url);
         setData(response.data);
       } catch (error) {
         setError(error);
@@ -25,7 +29,12 @@ const useFetch = (url) => {
   const reFetch = async (newUrl) => {
     setIsFetching(true);
     try {
-      const response = await axios.get(newUrl ? newUrl : url);
+      const response = withCookie
+        ? await axios.get(newUrl ? newUrl : url, {
+            withCredentials: true,
+          })
+        : await axios.get(newUrl ? newUrl : url);
+
       setData(response.data);
     } catch (error) {
       setError(error);
@@ -34,27 +43,7 @@ const useFetch = (url) => {
     }
   };
 
-  const postData = async (url, username, email, password) => {
-    setIsFetching(true);
-    try {
-      const response = await axios({
-        method: "post",
-        url: url,
-        data: {
-          username: username,
-          email: email,
-          password: password,
-        },
-      });
-      setData(response.data);
-    } catch (error) {
-      setError(error);
-    } finally {
-      setIsFetching(false);
-    }
-  };
-
-  return { data, isFetching, reFetch, postData };
+  return { data, isFetching, reFetch };
 };
 
 export default useFetch;

@@ -52,11 +52,16 @@ const Featured = () => {
         <div className="amounts">
           <div>
             <p className="title">Total sales made today</p>
-            <p className="amount">${salesToday}</p>
+            <p className="amount">
+              {" "}
+              {salesToday >= 0 ? `$${salesToday}` : "Await..."}
+            </p>
           </div>
           <div>
             <p className="title">Total earnings so far</p>
-            <p className="amount">${totalEarnings}</p>
+            <p className="amount">
+              {totalEarnings ? `$${totalEarnings}` : "Await..."}
+            </p>
           </div>
         </div>
         <p className="desc">

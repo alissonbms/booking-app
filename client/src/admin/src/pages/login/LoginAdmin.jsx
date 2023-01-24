@@ -29,24 +29,15 @@ const LoginAdmin = () => {
     authDispatch({ type: "AUTHENTICATION_START" });
 
     try {
-      const response = await fetch(
+      const response = await axios.post(
         "https://abms-booking-app-api.onrender.com/api/auth/login",
+        credentials,
         {
-          method: "POST",
-          credentials: "include",
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Credentials": true,
-          },
-          body: JSON.stringify({
-            email: credentials.email,
-            password: credentials.password,
-            username: credentials.username,
-          }),
+          withCredentials: true,
         }
       );
 
-      const result = await response.json();
+      const result = response.data;
 
       if (result.isAdmin) {
         authDispatch({

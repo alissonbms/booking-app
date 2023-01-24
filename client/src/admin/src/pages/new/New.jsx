@@ -24,6 +24,7 @@ const New = () => {
   const [file, setFile] = useState("");
   const [info, setInfo] = useState({});
   const [photoUrl, setPhotoUrl] = useState("");
+
   const handleChange = (e) => {
     setInfo((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
@@ -36,7 +37,6 @@ const New = () => {
         const data = new FormData();
         data.append("file", file);
         data.append("upload_preset", "upload");
-
         const uploadRes = await axios.post(
           `https://api.cloudinary.com/v1_1/${
             import.meta.env.VITE_CLOUD_KEY
@@ -47,21 +47,19 @@ const New = () => {
         const { url } = uploadRes.data;
 
         if (isUpdating) {
-          await fetch(
-            `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
-            {
-              method: "PATCH",
-              credentials: "include",
-              headers: {
-                "Access-Control-Allow-Credentials": true,
-              },
-              body: { ...info, photo: url },
-            }
-          ).catch((error) => {
-            error
-              ? alert.error("Something went wrong")
-              : alert.success("User updated successfully!");
-          });
+          await axios
+            .patch(
+              `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
+              { ...info, photo: url },
+              {
+                withCredentials: true,
+              }
+            )
+            .catch((error) => {
+              error
+                ? alert.error("Something went wrong")
+                : alert.success("User updated successfully!");
+            });
         } else {
           await axios
             .post(
@@ -75,30 +73,28 @@ const New = () => {
         }
       } else {
         if (isUpdating) {
-          await fetch(
-            `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
-            {
-              method: "PATCH",
-              credentials: "include",
-              headers: {
-                "Access-Control-Allow-Credentials": true,
-              },
-              body: { ...info },
-            }
-          ).catch((error) => {
-            error
-              ? alert.error("Something went wrong")
-              : alert.success("User updated successfully!");
-          });
+          await axios
+            .patch(
+              `https://abms-booking-app-api.onrender.com/api/user/${updateData.data._id}`,
+              { ...info },
+              {
+                withCredentials: true,
+              }
+            )
+            .catch((error) => {
+              error
+                ? alert.error("Something went wrong")
+                : alert.success("User updated successfully!");
+            });
         } else {
           await axios
             .post(
               `https://abms-booking-app-api.onrender.com/api/auth/register`,
+              { ...info },
               {
-                ...info,
+                withCredentials: true,
               }
             )
-
             .then(alert.success("User created successfully!"));
         }
       }

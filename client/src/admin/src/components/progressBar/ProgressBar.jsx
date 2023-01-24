@@ -26,7 +26,7 @@ const ProgressBar = () => {
   return (
     <CircularProgressbar
       value={value}
-      text={`${Math.round(value)}%`}
+      text={value ? `${Math.round(value)}%` : `Await...`}
       strokeWidth={5}
     />
   );

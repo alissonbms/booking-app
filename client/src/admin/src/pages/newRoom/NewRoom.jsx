@@ -38,6 +38,8 @@ const NewRoom = () => {
   const handleClick = async (e) => {
     e.preventDefault();
 
+    const isFilledWithObjects = Boolean(rooms[0].number);
+
     const roomNumbers = rooms.split(",").map((room) => ({
       number: Number(room),
     }));
@@ -45,33 +47,29 @@ const NewRoom = () => {
     try {
       const newRoom = {
         ...info,
-        roomNumbers,
+        roomNumbers: isFilledWithObjects ? rooms : roomNumbers,
       };
 
       if (isUpdating) {
-        await fetch(
-          `https://abms-booking-app-api.onrender.com/api/room/${updateData.data._id}`,
-          {
-            method: "PATCH",
-            credentials: "include",
-            headers: {
-              "Access-Control-Allow-Credentials": true,
-            },
-            body: newRoom,
-          }
-        ).then(alert.success("Room updated successfully!"));
+        await axios
+          .patch(
+            `https://abms-booking-app-api.onrender.com/api/room/${updateData.data._id}`,
+            newRoom,
+            {
+              withCredentials: true,
+            }
+          )
+          .then(alert.success("Room updated successfully!"));
       } else {
-        await fetch(
-          `https://abms-booking-app-api.onrender.com/api/room/${propertyId}`,
-          {
-            method: "POST",
-            credentials: "include",
-            headers: {
-              "Access-Control-Allow-Credentials": true,
-            },
-            body: newRoom,
-          }
-        ).then(alert.success("Room created successfully!"));
+        await axios
+          .post(
+            `https://abms-booking-app-api.onrender.com/api/room/${propertyId}`,
+            newRoom,
+            {
+              withCredentials: true,
+            }
+          )
+          .then(alert.success("Room created successfully!"));
       }
     } catch (error) {
       console.log(error);

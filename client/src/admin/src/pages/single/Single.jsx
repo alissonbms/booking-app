@@ -31,21 +31,12 @@ const Single = () => {
     const fetchWithCredentials = async () => {
       const response = await axios.get(
         `https://abms-booking-app-api.onrender.com/api/user/${id}`,
-        { withCredentials: true }
+        {
+          withCredentials: true,
+        }
       );
-      // const response = await fetch(
-      //   `https://abms-booking-app-api.onrender.com/api/user/${id}`,
-      //   {
-      //     method: "GET",
-      //     credentials: "include",
-      //     headers: {
-      //       "Access-Control-Allow-Credentials": true,
-      //     },
-      //   }
-      // );
 
-      // const result = await response.json();
-      setData(response);
+      setData(response.data);
       setIsFetching(false);
     };
 
