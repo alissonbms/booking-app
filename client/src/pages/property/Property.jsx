@@ -30,7 +30,7 @@ const Property = () => {
   const { dispatch, datesContext } = useContext(SearchContext);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
-  const [days, setDays] = useState();
+  const [isReady, setIsReady] = useState(false);
   const location = useLocation();
   const id = location.pathname.split("/").pop();
   const propertyName = location.state.propertyName;
@@ -38,6 +38,12 @@ const Property = () => {
   const { data, isFetching } = useFetch(
     `https://abms-booking-app-api.onrender.com/api/property/find/${id}`
   );
+  let diffDays = undefined;
+  const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
+  const timeDiff = Math.abs(
+    datesContext[0].endDate.getTime() - datesContext[0].startDate.getTime()
+  );
+  diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
 
   const handleReserve = () => {
     if (user) {
@@ -48,28 +54,14 @@ const Property = () => {
   };
 
   useEffect(() => {
-    try {
-      const MILLISECONDS_PER_DAY = 1000 * 60 * 60 * 24;
-      function dayDifference(date1, date2) {
-        const timeDiff = Math.abs(date2.getTime() - date1.getTime());
-        const diffDays = Math.ceil(timeDiff / MILLISECONDS_PER_DAY);
-        return diffDays;
-      }
-
-      setDays(
-        dayDifference(datesContext[0].startDate, datesContext[0].endDate)
-      );
-    } catch (error) {
-      if (error instanceof TypeError) {
-        navigate("/");
-      }
-      console.log(error);
+    if (diffDays != undefined) {
+      setIsReady(true);
     }
   }, []);
 
   return (
     <>
-      {days === undefined ? (
+      {isReady === false ? (
         <Loading />
       ) : (
         <>
@@ -115,9 +107,9 @@ const Property = () => {
 
                     <PropertyDetailsPrice>
                       <h1>
-                        {days === 0
+                        {diffDays === 0
                           ? `Perfect for a morning and afternoon stay!`
-                          : `Perfect for a ${days}-night stay!`}
+                          : `Perfect for a ${diffDays}-night stay!`}
                       </h1>
                       <span>
                         Located in the real heart of {data.city}, this property
@@ -127,13 +119,13 @@ const Property = () => {
                       <h2>
                         <b>
                           $
-                          {days === 0
+                          {diffDays === 0
                             ? data.cheapestPrice
-                            : days * data.cheapestPrice}{" "}
+                            : diffDays * data.cheapestPrice}{" "}
                         </b>
-                        {days === 0
+                        {diffDays === 0
                           ? "peer room"
-                          : `(${days} nights) peer room`}
+                          : `(${diffDays} nights) peer room`}
                       </h2>
                       <button onClick={handleReserve}>
                         Reserve or Book Now!
