@@ -30,6 +30,22 @@ const Property = () => {
   const { dispatch, datesContext } = useContext(SearchContext);
   const [openModal, setOpenModal] = useState(false);
   const navigate = useNavigate();
+  const [days, setDays] = useState();
+  const location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const propertyName = location.state.propertyName;
+  const propertyPhoto = location.state.propertyPhoto;
+  const { data, isFetching } = useFetch(
+    `https://abms-booking-app-api.onrender.com/api/property/find/${id}`
+  );
+
+  const handleReserve = () => {
+    if (user) {
+      setOpenModal(true);
+    } else {
+      navigate("/register");
+    }
+  };
 
   useEffect(() => {
     try {
@@ -49,23 +65,6 @@ const Property = () => {
       }
     }
   }, []);
-
-  const [days, setDays] = useState();
-  const location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const propertyName = location.state.propertyName;
-  const propertyPhoto = location.state.propertyPhoto;
-  const { data, isFetching } = useFetch(
-    `https://abms-booking-app-api.onrender.com/api/property/find/${id}`
-  );
-
-  const handleReserve = () => {
-    if (user) {
-      setOpenModal(true);
-    } else {
-      navigate("/register");
-    }
-  };
 
   return (
     <>
