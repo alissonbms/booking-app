@@ -14,6 +14,7 @@ import ListTable from "../../components/listTable/ListTable";
 import { SidebarContext } from "../../../../contexts/SidebarContext";
 import { UpdateContext } from "../../../../contexts/UpdateContext";
 import { useEffect } from "react";
+import axios from "axios";
 
 const Single = () => {
   const navigate = useNavigate();
@@ -28,19 +29,23 @@ const Single = () => {
   useEffect(() => {
     setIsFetching(true);
     const fetchWithCredentials = async () => {
-      const response = await fetch(
+      const response = await axios.get(
         `https://abms-booking-app-api.onrender.com/api/user/${id}`,
-        {
-          method: "GET",
-          credentials: "include",
-          headers: {
-            "Access-Control-Allow-Credentials": true,
-          },
-        }
+        { withCredentials: true }
       );
+      // const response = await fetch(
+      //   `https://abms-booking-app-api.onrender.com/api/user/${id}`,
+      //   {
+      //     method: "GET",
+      //     credentials: "include",
+      //     headers: {
+      //       "Access-Control-Allow-Credentials": true,
+      //     },
+      //   }
+      // );
 
-      const result = await response.json();
-      setData(result);
+      // const result = await response.json();
+      setData(response);
       setIsFetching(false);
     };
 
