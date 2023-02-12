@@ -26,6 +26,7 @@ intervalo de datas escolhido e na quantidade/preço dos quartos.
 - [Context API](https://reactjs.org/docs/context.html)
 - [React Date Range](https://www.npmjs.com/package/react-date-range)
 - [Axios](https://axios-http.com/ptbr/docs/intro)
+- [Node.js](https://nodejs.org/en/)
 - [MongoDB](https://www.mongodb.com/cloud)
 - [mongoose](https://mongoosejs.com/)
 - [Express](https://expressjs.com/pt-br/)
